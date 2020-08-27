@@ -2,6 +2,7 @@
 
 // Import a Google Font
 @import url("https://fonts.googleapis.com/css?family=Nunito:400,700");
+@import url('https://fonts.googleapis.com/css2?family=Halant:wght@700&display=swap');
 
 // Set your brand colors
 $purple: #8a4d76;
@@ -14,6 +15,7 @@ $beige-lighter: #eff0eb;
 $family-sans-serif: "Nunito", -apple-system, blinkmacsystemfont, "Segoe UI",
   "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
   "Helvetica Neue", sans-serif;
+$family-secondary: "Halant", serif;
 $grey-dark: $brown;
 $grey-light: $beige-light;
 $primary: $purple;

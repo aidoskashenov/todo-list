@@ -5,7 +5,7 @@ export const Header = () => (
     <section className="has-text-centered hero is-primary">
       <div className="hero-body">
         <div className="container">
-          <h1 className="has-text-info title">Todo List!</h1>
+          <h1 className="has-text-info-dark is-family-secondary title">Todo List!</h1>
         </div>
       </div>
     </section>
