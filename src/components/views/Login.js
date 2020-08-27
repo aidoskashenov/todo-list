@@ -24,19 +24,35 @@ export const Login = () => (
     }}
   >
     <Form>
-      <label htmlFor="name">Name</label>
-      <Field name="name" type="text" />
-      <ErrorMessage name="name" />
+      <div className="field">
+        <label htmlFor="name">Name</label>
+        <div className="control">
+          <Field name="name" type="text" />
+          <p className="help is-danger">
+            <ErrorMessage name="name" />
+          </p>
+        </div>
+      </div>
 
-      <label htmlFor="email">Email</label>
-      <Field name="email" type="email" />
-      <ErrorMessage name="email" />
+      <div className="field">
+        <label htmlFor="email">Email</label>
+        <div className="control">
+          <Field name="email" type="email" />
+          <ErrorMessage name="email" />
+        </div>
+      </div>
 
-      <label htmlFor="name">Password</label>
-      <Field name="pass" type="password" />
-      <ErrorMessage name="pass" />
+      <div className="field">
+        <label htmlFor="name">Password</label>
+        <div className="control">
+          <Field name="pass" type="password" />
+          <ErrorMessage name="pass" />
+        </div>
+      </div>
 
-      <button type="submit">Submit</button>
+      <button type="submit" className="button is-success">
+        Submit
+      </button>
     </Form>
   </Formik>
 )
