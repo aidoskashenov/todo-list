@@ -12,13 +12,14 @@
   flex-direction: column;
 }
 
-.hero--home {
+// Modified Bulma
+.hero {
   background: url("https://source.unsplash.com/1600x900/?todo") no-repeat center
     center fixed;
   background-size: cover;
 }
 
-.hero-body--home {
+.hero-body {
   background: rgba(255, 255, 255, 0.8);
 }
 
