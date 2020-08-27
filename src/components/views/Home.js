@@ -17,8 +17,8 @@ library.add(fab, faGithub, faLinkedin, faTwitter)
 
 export const Home = () => (
   <>
-    <div className="hero is-fullheight has-text-centered">
-      <div className="hero-body">
+    <div className="hero hero--home is-fullheight has-text-centered">
+      <div className="hero-body hero-body--home">
         <div className="container">
           <div className="flex flex--align-center flex--column">
             <img

@@ -2,13 +2,14 @@ import React from "react"
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 
-import { TodoList, Home, Login } from "./components"
+import { Header, TodoList, Home, Login } from "./components"
 
 import "./App.scss"
 
 export const App = () => {
   return (
     <Router>
+      <Header />
       <Route exact path="/">
         <Home />
       </Route>

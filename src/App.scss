@@ -12,14 +12,13 @@
   flex-direction: column;
 }
 
-// CSS additions to Bulma
-.hero {
+.hero--home {
   background: url("https://source.unsplash.com/1600x900/?todo") no-repeat center
     center fixed;
   background-size: cover;
 }
 
-.hero-body {
+.hero-body--home {
   background: rgba(255, 255, 255, 0.8);
 }
 
