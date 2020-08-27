@@ -9,13 +9,14 @@ import "./App.scss"
 export const App = () => {
   return (
     <Router>
-      <Header />
       <Route exact path="/">
         <Home />
       </Route>
 
       <Switch>
         <Route exact path="/login">
+          {/* TODO: Show header on all 'non-home' pages */}
+          <Header />
           <Login />
         </Route>
       </Switch>

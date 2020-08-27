@@ -2,11 +2,10 @@ import React from "react"
 
 export const Header = () => (
   <header>
-    <section className="hero is-primary">
+    <section className="has-text-centered hero is-primary">
       <div className="hero-body">
         <div className="container">
-          <h1 className="title">Primary title</h1>
-          <h2 className="subtitle">Primary subtitle</h2>
+          <h1 className="has-text-info title">Todo List!</h1>
         </div>
       </div>
     </section>
