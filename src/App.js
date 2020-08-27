@@ -12,7 +12,7 @@ export const App = () => {
       <Route exact path="/">
         <Home />
       </Route>
-      {/* TODO: Move this behind 'login' system. */}
+
       <Switch>
         <Route exact path="/login">
           <Login />
@@ -20,6 +20,10 @@ export const App = () => {
       </Switch>
 
       <Switch>
+        <Route exact path="/todolist">
+          <TodoList />
+        </Route>
+      </Switch>
     </Router>
   )
 }
