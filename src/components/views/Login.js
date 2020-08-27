@@ -1,6 +1,6 @@
 import React from "react"
 
-import { Formik } from "formik"
+import { Formik, Field, Form, ErrorMessage } from "formik"
 
 import * as Yup from "yup"
 
@@ -23,28 +23,20 @@ export const Login = () => (
       setSubmitting(false)
     }}
   >
-    {(formik) => (
-      <form onSubmit={formik.handleSubmit}>
-        <label htmlFor="name">Name</label>
-        <input type="text" id="name" {...formik.getFieldProps("name")} />
-        {formik.touched.name && formik.errors.name ? (
-          <p>{formik.errors.name}</p>
-        ) : null}
+    <Form>
+      <label htmlFor="name">Name</label>
+      <Field name="name" type="text" />
+      <ErrorMessage name="name" />
 
-        <label htmlFor="email">Email</label>
-        <input type="email" id="email" {...formik.getFieldProps("email")} />
-        {formik.touched.email && formik.errors.email ? (
-          <p>{formik.errors.email}</p>
-        ) : null}
+      <label htmlFor="email">Email</label>
+      <Field name="email" type="email" />
+      <ErrorMessage name="email" />
 
-        <label htmlFor="pass">Password</label>
-        <input type="password" id="pass" {...formik.getFieldProps("pass")} />
-        {formik.touched.pass && formik.errors.pass ? (
-          <p>{formik.errors.pass}</p>
-        ) : null}
+      <label htmlFor="name">Password</label>
+      <Field name="pass" type="password" />
+      <ErrorMessage name="pass" />
 
-        <button type="submit">Submit</button>
-      </form>
-    )}
+      <button type="submit">Submit</button>
+    </Form>
   </Formik>
 )
