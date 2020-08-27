@@ -24,6 +24,7 @@
 }
 
 @media screen and (min-width: $tablet) {
+  // TODO: Resolve text centering when limiting width
   .hero.is-fullheight {
     min-height: 40vh;
   }
