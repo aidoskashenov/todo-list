@@ -8,12 +8,12 @@ import * as Yup from "yup"
 
 export const Login = () => {
   const location = useLocation()
-  const [formMode, setFormMode] = useState(location.search.slice(1))
+  const [loginMode, setLoginMode] = useState(location.search.slice(1))
 
   return (
     // TODO: Add state and a toggle button to switch between 'new account' vs 'login'
     <section className="center section">
-      <h2 className="has-text-centered title">Login/Create Account</h2>
+      <h2 className="has-text-centered title">{loginMode ? "Login" : "Create Account"}</h2>
       <Formik
         initialValues={{
           email: "",
@@ -33,7 +33,7 @@ export const Login = () => {
         }}
       >
         <Form className="box">
-          <div className="field">
+          {!loginMode ? <div className="field">
             <label htmlFor="name" className="ml-2">
               Name
             </label>
@@ -43,7 +43,7 @@ export const Login = () => {
                 <ErrorMessage name="name" />
               </p>
             </div>
-          </div>
+          </div> : null}
 
           <div className="field">
             <label htmlFor="email" className="ml-2">
