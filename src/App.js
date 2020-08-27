@@ -9,7 +9,7 @@ import "./App.scss"
 export const App = () => {
   return (
     <Router>
-      <Route exact={true} path="/">
+      <Route exact path="/">
         <Home />
       </Route>
       {/* TODO: Move this behind 'login' system. */}
