@@ -14,10 +14,17 @@
 
 // CSS additions to Bulma
 .hero {
-  background: url("https://source.unsplash.com/1600x900/?todo") no-repeat center center fixed;
+  background: url("https://source.unsplash.com/1600x900/?todo") no-repeat center
+    center fixed;
   background-size: cover;
 }
 
 .hero-body {
   background: rgba(255, 255, 255, 0.8);
+}
+
+@media screen and (min-width: $tablet) {
+  .hero.is-fullheight {
+    min-height: 40vh;
+  }
 }

@@ -1,5 +1,7 @@
 import React from "react"
 
+import logo from "logo.svg"
+
 import { library } from "@fortawesome/fontawesome-svg-core"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { fab } from "@fortawesome/free-brands-svg-icons"
@@ -16,8 +18,13 @@ export const Home = () => (
     <div className="hero is-fullheight has-text-centered">
       <div className="hero-body">
         <div className="container">
-          <h1 className="title">Todo List!</h1>
           <div className="flex flex--align-center flex--column">
+            <img
+              src={logo}
+              alt="Logo from FreePik for TodoList"
+              className="image is-64x64 mb-4"
+            />
+            <h1 className="title">Todo List!</h1>
             <button className="button is-primary my-2">Get Started</button>
             <button className="button is-small my-2">Login</button>
           </div>
@@ -45,7 +52,11 @@ export const Home = () => (
       <div className="content has-text-centered">
         <p>
           <strong>Todo List by&nbsp;</strong>
-          <a href="https://codefinity.tech" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://codefinity.tech"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             CodeFinity
           </a>
         </p>
