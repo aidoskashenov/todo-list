@@ -28,40 +28,19 @@ export const Login = () => {
   return (
     <form onSubmit={formik.handleSubmit}>
       <label htmlFor="name">Name</label>
-      <input
-        type="text"
-        id="name"
-        name="name"
-        onBlur={formik.handleBlur}
-        onChange={formik.handleChange}
-        value={formik.values.name}
-      />
+      <input type="text" id="name" {...formik.getFieldProps("name")} />
       {formik.touched.name && formik.errors.name ? (
         <p>{formik.errors.name}</p>
       ) : null}
 
       <label htmlFor="email">Email</label>
-      <input
-        type="email"
-        id="email"
-        name="email"
-        onBlur={formik.handleBlur}
-        onChange={formik.handleChange}
-        value={formik.values.email}
-      />
+      <input type="email" id="email" {...formik.getFieldProps("email")} />
       {formik.touched.email && formik.errors.email ? (
         <p>{formik.errors.email}</p>
       ) : null}
 
       <label htmlFor="pass">Password</label>
-      <input
-        type="password"
-        id="pass"
-        name="pass"
-        onBlur={formik.handleBlur}
-        onChange={formik.handleChange}
-        value={formik.values.pass}
-      />
+      <input type="password" id="pass" {...formik.getFieldProps("pass")} />
       {formik.touched.pass && formik.errors.pass ? (
         <p>{formik.errors.pass}</p>
       ) : null}
