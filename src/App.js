@@ -1,8 +1,8 @@
 import React from "react"
 
-import { BrowserRouter as Router, Route } from "react-router-dom"
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 
-import { TodoList, Home } from "./components"
+import { TodoList, Home, Login } from "./components"
 
 import "./App.scss"
 
@@ -13,7 +13,13 @@ export const App = () => {
         <Home />
       </Route>
       {/* TODO: Move this behind 'login' system. */}
-      <TodoList />
+      <Switch>
+        <Route exact path="/login">
+          <Login />
+        </Route>
+      </Switch>
+
+      <Switch>
     </Router>
   )
 }

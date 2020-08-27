@@ -1,5 +1,7 @@
 import React from "react"
 
+import { Link} from "react-router-dom"
+
 import logo from "logo.svg"
 
 import { library } from "@fortawesome/fontawesome-svg-core"
@@ -25,8 +27,8 @@ export const Home = () => (
               className="image is-64x64 mb-4"
             />
             <h1 className="title">Todo List!</h1>
-            <button className="button is-primary my-2">Get Started</button>
-            <button className="button is-small my-2">Login</button>
+            <Link className="button is-primary my-2" to="/login">Get Started</Link>
+            <Link className="button is-small my-2" to="/login">Login</Link>
           </div>
         </div>
       </div>
