@@ -8,10 +8,16 @@ export const Login = () => {
 
     if (!values.name) {
       errors.name = "Name is required!"
-    } if (!values.email) {
+    }
+    if (!values.email) {
       errors.email = "Email is required!"
-    } if (!values.pass) {
-      errors.pass = "Email is required!"
+    } else if (
+      !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)
+    ) {
+      errors.email = "Doesn't look like email"
+    }
+    if (!values.pass) {
+      errors.pass = "Password is required!"
     }
 
     return errors
@@ -38,30 +44,39 @@ export const Login = () => {
         type="text"
         id="name"
         name="name"
+        onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         value={formik.values.name}
       />
-      {formik.errors.name ? <p>{formik.errors.name}</p> : null}
+      {formik.touched.name && formik.errors.name ? (
+        <p>{formik.errors.name}</p>
+      ) : null}
 
       <label htmlFor="email">Email</label>
       <input
         type="email"
         id="email"
         name="email"
+        onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         value={formik.values.email}
       />
-      {formik.errors.email ? <p>{formik.errors.email}</p> : null}
+      {formik.touched.email && formik.errors.email ? (
+        <p>{formik.errors.email}</p>
+      ) : null}
 
       <label htmlFor="pass">Password</label>
       <input
         type="password"
         id="pass"
         name="pass"
+        onBlur={formik.handleBlur}
         onChange={formik.handleChange}
         value={formik.values.pass}
       />
-      {formik.errors.pass ? <p>{formik.errors.pass}</p> : null}
+      {formik.touched.password && formik.errors.pass ? (
+        <p>{formik.errors.pass}</p>
+      ) : null}
 
       <button type="submit">Submit</button>
     </form>
