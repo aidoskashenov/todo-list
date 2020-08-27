@@ -1,6 +1,6 @@
 import React from "react"
 
-import { Link} from "react-router-dom"
+import { Link } from "react-router-dom"
 
 import logo from "logo.svg"
 
@@ -34,9 +34,5 @@ export const Home = () => (
         </p>
       </div>
     </section>
-
-    <div>
-      <div className="divider">Let&apos;s Connect!</div>
-    </div>
   </>
 )
