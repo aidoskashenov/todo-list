@@ -6,8 +6,8 @@ import * as Yup from "yup"
 
 export const Login = () => (
   // TODO: Add state and a toggle button to switch between 'new account' vs 'login'
-  <section className="section">
-    <h2 className="title">Login/Create Account</h2>
+  <section className="center section">
+    <h2 className="has-text-centered title">Login/Create Account</h2>
     <Formik
       initialValues={{
         email: "",
@@ -26,10 +26,12 @@ export const Login = () => (
         setSubmitting(false)
       }}
     >
-      <Form>
+      <Form className="box">
         <div className="field">
-          <label htmlFor="name">Name</label>
-          <div className="control">
+          <label htmlFor="name" className="ml-2">
+            Name
+          </label>
+          <div className="control mx-2 my-1">
             <Field name="name" type="text" />
             <p className="help is-danger">
               <ErrorMessage name="name" />
@@ -38,22 +40,25 @@ export const Login = () => (
         </div>
 
         <div className="field">
-          <label htmlFor="email">Email</label>
-          <div className="control">
+          <label htmlFor="email" className="ml-2">
+            Email
+          </label>
+          <div className="control mx-2 my-1">
             <Field name="email" type="email" />
             <ErrorMessage name="email" />
           </div>
         </div>
 
         <div className="field">
-          <label htmlFor="name">Password</label>
-          <div className="control">
+          <label htmlFor="name" className="ml-2">
+            Password
+          </label>
+          <div className="control mx-2 my-1">
             <Field name="pass" type="password" />
             <ErrorMessage name="pass" />
           </div>
         </div>
-
-        <button type="submit" className="button is-success">
+        <button type="submit" className="button is-success ml-2 mt-2">
           Submit
         </button>
       </Form>

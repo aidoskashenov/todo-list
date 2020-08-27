@@ -1,5 +1,11 @@
 @import "./shared";
 
+.center {
+  margin: 0 auto;
+  max-width: 500px;
+  width: 90vw;
+}
+
 .flex {
   display: flex;
 }
@@ -13,6 +19,10 @@
 }
 
 // Modified Bulma
+.box {
+  max-width: 550px;
+}
+
 .hero {
   background: url("https://source.unsplash.com/1600x900/?todo") no-repeat center
     center fixed;
