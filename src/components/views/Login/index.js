@@ -6,13 +6,15 @@ import { useLocation } from "react-router-dom"
 
 import * as Yup from "yup"
 
+import {Options} from "./Options"
+
 export const Login = () => {
   const location = useLocation()
 
   const [loginMode, setLoginMode] = useState(location.search.includes("login"))
 
   return (
-    <section className="center section">
+    <section className="box center section">
       <h2 className="has-text-centered title">
         {loginMode ? "Login" : "Create Account"}
       </h2>
@@ -34,7 +36,7 @@ export const Login = () => {
           setSubmitting(false)
         }}
       >
-        <Form className="box">
+        <Form>
           {!loginMode ? (
             <div className="field">
               <label htmlFor="name" className="ml-2">
@@ -73,6 +75,7 @@ export const Login = () => {
           </button>
         </Form>
       </Formik>
+      <Options />
     </section>
   )
 }
