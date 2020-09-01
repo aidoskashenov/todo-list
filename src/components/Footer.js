@@ -12,7 +12,7 @@ import {
 library.add(fab, faGithub, faLinkedin, faTwitter)
 
 export const Footer = () => (
-  <>
+  <footer className="footer">
     <div>
       <div className="divider">Let&apos;s Connect!</div>
     </div>
@@ -56,5 +56,5 @@ export const Footer = () => (
         </div>
       </div>
     </footer>
-  </>
+  </footer>
 )
