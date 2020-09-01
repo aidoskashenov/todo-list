@@ -6,7 +6,7 @@ import { useLocation } from "react-router-dom"
 
 import * as Yup from "yup"
 
-import {Options} from "./Options"
+import { Options } from "./Options"
 
 export const Login = () => {
   const location = useLocation()
@@ -75,7 +75,7 @@ export const Login = () => {
           </button>
         </Form>
       </Formik>
-      <Options />
+      <Options loginMode={loginMode} />
     </section>
   )
 }
