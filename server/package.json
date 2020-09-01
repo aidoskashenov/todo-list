@@ -2,7 +2,7 @@
   "name": "todo-list-server",
   "version": "1.0.0",
   "description": "Server for Todo List",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "build": "webpack",
     "serve": "nodemon dist/main.js",
