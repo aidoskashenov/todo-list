@@ -2,18 +2,20 @@ import React, { useState } from "react"
 
 import { Formik, Field, Form, ErrorMessage } from "formik"
 
-import {useLocation} from "react-router-dom"
+import { useLocation } from "react-router-dom"
 
 import * as Yup from "yup"
 
 export const Login = () => {
   const location = useLocation()
-  const [loginMode, setLoginMode] = useState(location.search.slice(1))
+
+  const [loginMode, setLoginMode] = useState(location.search.includes("login"))
 
   return (
-    // TODO: Add state and a toggle button to switch between 'new account' vs 'login'
     <section className="center section">
-      <h2 className="has-text-centered title">{loginMode ? "Login" : "Create Account"}</h2>
+      <h2 className="has-text-centered title">
+        {loginMode ? "Login" : "Create Account"}
+      </h2>
       <Formik
         initialValues={{
           email: "",
@@ -33,17 +35,19 @@ export const Login = () => {
         }}
       >
         <Form className="box">
-          {!loginMode ? <div className="field">
-            <label htmlFor="name" className="ml-2">
-              Name
-            </label>
-            <div className="control mx-2 my-1">
-              <Field name="name" type="text" />
-              <p className="help is-danger">
-                <ErrorMessage name="name" />
-              </p>
+          {!loginMode ? (
+            <div className="field">
+              <label htmlFor="name" className="ml-2">
+                Name
+              </label>
+              <div className="control mx-2 my-1">
+                <Field name="name" type="text" />
+                <p className="help is-danger">
+                  <ErrorMessage name="name" />
+                </p>
+              </div>
             </div>
-          </div> : null}
+          ) : null}
 
           <div className="field">
             <label htmlFor="email" className="ml-2">
@@ -69,7 +73,6 @@ export const Login = () => {
           </button>
         </Form>
       </Formik>
-
     </section>
   )
 }
