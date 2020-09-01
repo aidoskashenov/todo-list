@@ -11,7 +11,17 @@ import { Options } from "./Options"
 export const Login = () => {
   const location = useLocation()
 
+  const [forgotMode, setForgotMode] = useState(false)
   const [loginMode, setLoginMode] = useState(location.search.includes("login"))
+
+  const handleToggle = (event) => {
+    if (event.target.textContent.includes("Forgot")) {
+      setForgotMode(true)
+    } else {
+      setForgotMode(false)
+      setLoginMode((prev) => !prev)
+    }
+  }
 
   return (
     <section className="box center mt-4 section">
@@ -61,21 +71,22 @@ export const Login = () => {
             </div>
           </div>
 
-          <div className="field">
-            <label htmlFor="name" className="ml-2">
+          {!forgotMode ? <div className="field">
+            <label htmlFor="pass" className="ml-2">
               Password
             </label>
             <div className="control mx-2 my-1">
               <Field name="pass" type="password" />
               <ErrorMessage name="pass" />
             </div>
-          </div>
+          </div> : null}
+
           <button type="submit" className="button is-success ml-2 mt-2">
             Submit
           </button>
         </Form>
       </Formik>
-      <Options loginMode={loginMode} />
+      <Options forgotMode={forgotMode}loginMode={loginMode} handler={handleToggle} />
     </section>
   )
 }
