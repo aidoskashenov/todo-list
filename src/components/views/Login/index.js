@@ -14,7 +14,7 @@ export const Login = () => {
   const [loginMode, setLoginMode] = useState(location.search.includes("login"))
 
   return (
-    <section className="box center section">
+    <section className="box center mt-4 section">
       <h2 className="has-text-centered title">
         {loginMode ? "Login" : "Create Account"}
       </h2>
