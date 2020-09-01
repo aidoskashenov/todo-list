@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack",
-    "start-server": "nodemon dist/main.js",
+    "serve": "nodemon dist/main.js",
     "watcher": "webpack --watch"
   },
   "keywords": [
