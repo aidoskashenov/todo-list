@@ -4,6 +4,7 @@ import cors from 'cors';
 
 import dotenv from 'dotenv';
 
+import todos from './routes/todos';
 import users from './routes/users';
 
 dotenv.config();
@@ -16,6 +17,7 @@ app.get('/', (_, res) => {
 
 app.use(express.json());
 
+app.use('/todos', todos);
 app.use('/users', users);
 
 app.listen(process.env.PORT, () => {

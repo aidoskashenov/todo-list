@@ -27,3 +27,11 @@ export const loginUser = async (creds) => {
     throw new Error(err);
   }
 };
+
+export const findTodosByUser = async (user) => {
+  try {
+    return await client.db('todos').collection('todos').find(user).toArray();
+  } catch (err) {
+    throw new Error(error);
+  }
+};
