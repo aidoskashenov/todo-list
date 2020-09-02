@@ -1,6 +1,8 @@
 import { Router } from 'express';
 
-import { addTodo, findTodosByUser, toggleCompletion } from '../db';
+import {
+  addTodo, findTodosByUser, deleteTodo, toggleCompletion,
+} from '../db';
 
 const router = new Router();
 
@@ -30,7 +32,17 @@ router.patch('/toggle-completion', async ({ body }, res) => {
     const mongoRes = await toggleCompletion(body.todo, body.completion);
     res.status(204);
     res.send(mongoRes);
-  } catch {
+  } catch (err) {
+    res.status(500);
+  }
+});
+
+router.delete('/', async ({ body }, res) => {
+  try {
+    const mongoRes = await deleteTodo(body);
+    res.status(204);
+    res.send(mongoRes);
+  } catch (err) {
     res.status(500);
   }
 });

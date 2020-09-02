@@ -54,3 +54,11 @@ export const toggleCompletion = async (todo, completionStatus) => {
     throw new Error(err);
   }
 };
+
+export const deleteTodo = async (todo) => {
+  try {
+    return await client.db('todos').collection('todos').deleteOne(todo);
+  } catch (err) {
+    throw new Error(err);
+  }
+};
