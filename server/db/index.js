@@ -9,7 +9,6 @@ export const addUser = async (newUser) => {
 };
 
 export const loginUser = async (creds) => {
-  console.log(creds, 'creds');
   try {
     return await client
       .db('todos')
