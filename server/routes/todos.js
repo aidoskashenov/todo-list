@@ -6,7 +6,6 @@ const router = new Router();
 
 router.post('/', async ({ body }, res) => {
   try {
-    console.log('route got', body);
     const mongoRes = await findTodosByUser(body);
     res.status(201);
     res.send(mongoRes);
