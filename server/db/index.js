@@ -10,10 +10,7 @@ export const addUser = async (newUser) => {
 
 export const loginUser = async (creds) => {
   try {
-    return await client
-      .db('todos')
-      .collection('users')
-      .find(creds).toArray();
+    return await client.db('todos').collection('users').find(creds).toArray();
   } catch (err) {
     throw new Error(err);
   }
