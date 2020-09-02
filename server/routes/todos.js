@@ -27,7 +27,7 @@ router.post('/add', async ({ body }, res) => {
   }
 });
 
-router.patch('/toggle-completion', async ({ body }, res) => {
+router.patch('/', async ({ body }, res) => {
   try {
     const mongoRes = await toggleCompletion(body.todo, body.completion);
     res.status(204);
