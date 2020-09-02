@@ -28,6 +28,14 @@ export const loginUser = async (creds) => {
   }
 };
 
+export const addTodo = async (newTodo) => {
+  try {
+    return await client.db('todos').collection('todos').insertOne(newTodo);
+  } catch (err) {
+    throw new Error(err);
+  }
+};
+
 export const findTodosByUser = async (user) => {
   try {
     return await client.db('todos').collection('todos').find(user).toArray();
