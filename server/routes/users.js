@@ -5,7 +5,7 @@ import { addUser, loginUser } from '../db';
 const router = new Router();
 
 router.get('/', (_, res) => {
-  res.send('<h1>You have reached users test route!');
+  res.send('<h1>You have reached users test route!</h1>');
 });
 
 router.post('/create', async ({ body }, res) => {
