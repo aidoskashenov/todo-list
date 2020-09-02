@@ -2,8 +2,20 @@ import client from './client';
 
 export const addUser = async (newUser) => {
   try {
-    return await client.db('todos').collection('users').insertOne(newUser);
+    // Pull out the user ✉️
+    const { email } = newUser;
+    const existingUser = await client
+      .db('todos')
+      .collection('users')
+      .findOne({ email });
+
+    if (!existingUser) {
+      return await client.db('todos').collection('users').insertOne(newUser);
+    }
+
+    throw new Error('User already exists!');
   } catch (err) {
+    // Throw back any other errors
     throw new Error(err);
   }
 };
