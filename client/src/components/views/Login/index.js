@@ -6,6 +6,8 @@ import { useHistory, useLocation } from "react-router-dom"
 
 import * as Yup from "yup"
 
+// This is an outer function wrapping an innner function that retuns out the 'api methods'
+import api from "api"
 import auth from "auth"
 
 import { Options } from "./Options"
@@ -16,6 +18,8 @@ export const Login = () => {
 
   const [forgotMode, setForgotMode] = useState(false)
   const [loginMode, setLoginMode] = useState(location.search.includes("login"))
+
+  const usersAPI = api("users")
 
   const handleToggle = (event) => {
     if (event.target.textContent.includes("Forgot")) {
@@ -57,7 +61,7 @@ export const Login = () => {
           if (forgotMode) {
             auth
               .sendPasswordResetEmail(email)
-              .then((res) => {
+              .then(() => {
                 // TODO: Create a notification to tell them to check their ✉️
               })
               .catch((err) => {
@@ -77,14 +81,16 @@ export const Login = () => {
             auth
               .createUserWithEmailAndPassword(email, pass)
               .then(() => {
+                usersAPI.create({ email, password: pass })
                 setSubmitting(false)
+
                 // TODO: Use our api to send 'name' and any other deets over to Mongo
                 // After this is sent to our Mongo...
                 // try-catch
                 // history.push("/todos", { currentUser: email })
               })
               .catch((err) => {
-                console.log(err)
+                console.error(err.message)
               })
           }
         }}
