@@ -37,11 +37,11 @@ export const Login = () => {
           pass: "",
         }}
         validationSchema={Yup.object({
-          name: Yup.string().required("Name is required!"),
+          name: !loginMode && Yup.string().required("Name is required!"),
           email: Yup.string()
             .email("Invalid email address!")
             .required("Email is required!"),
-          pass: Yup.string().min(6).required("Pass is required!"),
+          pass: !forgotMode && Yup.string().min(6).required("Pass is required!"),
         })}
         onSubmit={(values, { setSubmitting }) => {
           console.log("submission", values)
