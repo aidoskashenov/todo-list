@@ -1,7 +1,11 @@
 import React, { useReducer } from "react"
 
+import {useHistory} from "react-router-dom"
+
 import { AddForm as Add } from "./AddForm"
 import { List } from "./List"
+
+import auth from "auth"
 
 function reducer(state, action) {
   switch (action.type) {
@@ -25,6 +29,7 @@ function reducer(state, action) {
 }
 
 export const TodoList = () => {
+  const history = useHistory()
   const [todos, dispatch] = useReducer(reducer, [])
 
   const handleAdd = (event) => {
@@ -44,6 +49,13 @@ export const TodoList = () => {
     dispatch({ type: "toggle-completion", toggledTodo })
   }
 
+  const handleClick = () => {
+    // TODO: Add a proper 'then-catch'
+    auth.signOut().then(() => {
+      history.push('/login')
+    })
+  }
+
   const handleTrash = ({ target }) => {
     dispatch({ type: "trash", id: Number(target.closest("li").dataset.id) })
   }
@@ -56,6 +68,7 @@ export const TodoList = () => {
         trashHandler={handleTrash}
       />
       <Add handler={handleAdd} />
+      <button className="button is-warning" type="button" onClick={handleClick}>Sign Out</button>
     </main>
   )
 }
