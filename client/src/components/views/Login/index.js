@@ -6,6 +6,8 @@ import { useLocation } from "react-router-dom"
 
 import * as Yup from "yup"
 
+import auth from "auth"
+
 import { Options } from "./Options"
 
 export const Login = () => {
