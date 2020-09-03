@@ -15,6 +15,7 @@ app.get('/', (_, res) => {
   res.send('<h1>Hello from Express</h1>');
 });
 
+app.use(cors());
 app.use(express.json());
 
 app.use('/todos', todos);
