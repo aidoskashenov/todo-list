@@ -1,8 +1,8 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 
 import { Formik, Field, Form, ErrorMessage } from "formik"
 
-import { useLocation } from "react-router-dom"
+import { useHistory, useLocation } from "react-router-dom"
 
 import * as Yup from "yup"
 
@@ -11,6 +11,7 @@ import auth from "auth"
 import { Options } from "./Options"
 
 export const Login = () => {
+  const history = useHistory()
   const location = useLocation()
 
   const [forgotMode, setForgotMode] = useState(false)
@@ -24,6 +25,14 @@ export const Login = () => {
       setLoginMode((prev) => !prev)
     }
   }
+
+  useEffect(() => {
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        history.push("/todos", {currentUser: user.email})
+      }
+    })
+  }, [history])
 
   return (
     <section className="box center mt-4 section">
