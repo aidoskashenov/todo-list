@@ -2,7 +2,7 @@ import React from "react"
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 
-import { Header, TodoList, Footer, Home, Login, Four04 } from "./components"
+import { Header, List, Footer, Home, Login, Four04 } from "./components"
 
 import "./App.scss"
 
@@ -21,7 +21,7 @@ export const App = () => {
 
         <Route exact path="/todos">
           <Header />
-          <TodoList />
+          <List />
         </Route>
 
         <Route>
