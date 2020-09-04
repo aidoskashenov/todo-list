@@ -83,20 +83,18 @@ export const Login = () => {
           } else {
             auth
               .createUserWithEmailAndPassword(email, pass)
-              .then(() => {
+              .then(({ user: { uid } }) => {
                 // In 'then' - means we have a user.
                 // Send to Mongo the 'uid' and 'name'
-                auth.onAuthStateChanged(({ uid }) => {
-                  try {
-                    usersAPI.create({ uid, name }).then(() => {
-                      // TODO: Check Y this may be causing a mem 🧠 leak
-                      setSubmitting(false)
-                      history.push("/todos", { uid, name })
-                    })
-                  } catch (err) {
-                    console.error(err)
-                  }
-                })
+                try {
+                  usersAPI.create({ uid, name }).then(() => {
+                    // TODO: Check Y this may be causing a mem 🧠 leak
+                    setSubmitting(false)
+                    history.push("/todos", { uid, name })
+                  })
+                } catch (err) {
+                  console.error(err)
+                }
               })
               .catch((err) => {
                 setSubmitting(false)
