@@ -6,7 +6,7 @@ import { useHistory, useLocation } from "react-router-dom"
 
 import * as Yup from "yup"
 
-// This is an outer function wrapping an innner function that retuns out the 'api methods'
+// This is an outer function wrapping an inner function that returns out the 'api methods'
 import api from "api"
 import auth from "auth"
 
