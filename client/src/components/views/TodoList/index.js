@@ -5,9 +5,8 @@ import { useHistory, useLocation } from "react-router-dom"
 import { AddForm as Add } from "./AddForm"
 import { List } from "./List"
 
+import api from "api"
 import auth from "auth"
-
-// TODOs: Use todosAPI.show(state.uid) - get all of the Todos for current person
 
 function reducer(state, action) {
   switch (action.type) {
@@ -15,7 +14,7 @@ function reducer(state, action) {
     // Add a new 'action.type' called 'init'
     case "add":
       return state.concat({
-        id: state.length + 1,
+        id: action.id,
         completed: false,
         text: action.text,
       })
@@ -40,6 +39,8 @@ export const TodoList = () => {
 
   const [currentUser, setCurrentUser] = useState(state?.uid)
 
+  const todosAPI = api("todos")
+
   useEffect(() => {
     /**
      * If we don't have a currentUser,
@@ -58,12 +59,18 @@ export const TodoList = () => {
     }
   }, [currentUser, history])
 
-  // TODO: 'useEffect' - todosAPI.show(uid)
   // Dispatch 'init' to update all of the initial todos...if any
-  const handleAdd = (event) => {
+  const handleAdd = async (event) => {
     event.preventDefault()
-    dispatch({ type: "add", text: event.target.elements[0].value })
-    event.target.reset()
+    const text = event.target.elements[0].value
+    try {
+      const res = await todosAPI.create({ text, uid: currentUser })
+      dispatch({ id: res.insertedId, type: "add", text })
+    } catch (err) {
+      console.error(err)
+    } finally {
+      event.target.reset()
+    }
   }
 
   const handleCheckbox = ({ target }) => {

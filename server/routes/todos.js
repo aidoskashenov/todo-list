@@ -17,7 +17,7 @@ router.post('/', async ({ body }, res) => {
   }
 });
 
-router.post('/add', async ({ body }, res) => {
+router.post('/create', async ({ body }, res) => {
   try {
     const mongoRes = await addTodo(body);
     res.status(201);
