@@ -70,9 +70,9 @@ export const Login = () => {
           } else if (loginMode) {
             auth
               .signInWithEmailAndPassword(email, pass)
-              .then(() => {
+              .then(({ user: { uid } }) => {
                 setSubmitting(false)
-                history.push("/todos", { currentUser: email })
+                history.push("/todos", { uid })
               })
               .catch((err) => {
                 console.error(err)
@@ -81,16 +81,23 @@ export const Login = () => {
             auth
               .createUserWithEmailAndPassword(email, pass)
               .then(() => {
-                usersAPI.create({ email, password: pass })
-                setSubmitting(false)
+                // In 'then' - means we have a user.
+                // Send to Mongo the 'uid' and 'name'
+                auth.onAuthStateChanged(({ uid }) => {
+                  try {
+                    usersAPI.create({ uid, name })
+                    setSubmitting(false);
 
-                // TODO: Use our api to send 'name' and any other deets over to Mongo
-                // After this is sent to our Mongo...
-                // try-catch
-                // history.push("/todos", { currentUser: email })
+                    // Send our newly created user over to the app for 'todos.'
+                    history.push("/todos", {uid, name})
+                  } catch (err) {
+                    console.error(err)
+                  }
+                })
               })
               .catch((err) => {
                 console.error(err.message)
+                setSubmitting(false)
               })
           }
         }}
