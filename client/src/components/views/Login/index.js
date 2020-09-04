@@ -85,19 +85,19 @@ export const Login = () => {
                 // Send to Mongo the 'uid' and 'name'
                 auth.onAuthStateChanged(({ uid }) => {
                   try {
-                    usersAPI.create({ uid, name })
-                    setSubmitting(false);
-
-                    // Send our newly created user over to the app for 'todos.'
-                    history.push("/todos", {uid, name})
+                    usersAPI.create({ uid, name }).then(() => {
+                      // TODO: Check Y this may be causing a mem 🧠 leak
+                      setSubmitting(false)
+                      history.push("/todos", { uid, name })
+                    })
                   } catch (err) {
                     console.error(err)
                   }
                 })
               })
               .catch((err) => {
-                console.error(err.message)
                 setSubmitting(false)
+                console.error(err.message)
               })
           }
         }}

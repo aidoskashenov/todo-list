@@ -19,11 +19,10 @@ router.post('/create', async ({ body }, res) => {
   }
 });
 
-router.post('/login', async ({ body }, res) => {
+router.post('/create', async ({ body }, res) => {
   try {
-    const mongoRes = await loginUser(body);
-    console.log(mongoRes, 'mongores');
-    res.status(200);
+    const mongoRes = await addUser(body);
+    res.status(201);
     res.send(mongoRes);
   } catch (err) {
     res.status(500);
