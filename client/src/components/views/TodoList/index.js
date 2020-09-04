@@ -1,14 +1,18 @@
-import React, { useReducer } from "react"
+import React, { useEffect, useReducer, useState } from "react"
 
-import {useHistory, useLocation} from "react-router-dom"
+import { useHistory, useLocation } from "react-router-dom"
 
 import { AddForm as Add } from "./AddForm"
 import { List } from "./List"
 
 import auth from "auth"
 
+// TODOs: Use todosAPI.show(state.uid) - get all of the Todos for current person
+
 function reducer(state, action) {
   switch (action.type) {
+    // TODO: Update this to allow multiple add an Array of TODOs.
+    // Add a new 'action.type' called 'init'
     case "add":
       return state.concat({
         id: state.length + 1,
@@ -30,14 +34,32 @@ function reducer(state, action) {
 
 export const TodoList = () => {
   const history = useHistory()
-  const {state} = useLocation()
+  const { state } = useLocation()
 
   const [todos, dispatch] = useReducer(reducer, [])
 
-  if (!state) {
-    history.push('/login')
-  }
+  const [currentUser, setCurrentUser] = useState(state?.uid)
 
+  useEffect(() => {
+    /**
+     * If we don't have a currentUser,
+     * then maybe user entered the URL directly bypassing (history.push).
+     *
+     * We need to use 'auth' to confirm if there is a user, or we need to send them back to 'login.'
+     */
+    if (!currentUser) {
+      auth.onAuthStateChanged((user) => {
+        if (user) {
+          setCurrentUser(user.uid)
+        } else {
+          history.push("/login")
+        }
+      })
+    }
+  }, [currentUser, history])
+
+  // TODO: 'useEffect' - todosAPI.show(uid)
+  // Dispatch 'init' to update all of the initial todos...if any
   const handleAdd = (event) => {
     event.preventDefault()
     dispatch({ type: "add", text: event.target.elements[0].value })
@@ -47,9 +69,7 @@ export const TodoList = () => {
   const handleCheckbox = ({ target }) => {
     const toggledTodo =
       // Go through the current 'todos' and find the one whose id matches the one that was clicked on (using the closest 'li' to get that 'id'.)
-      todos.find(
-      ({ id }) => id === Number(target.closest("li").dataset.id)
-    )
+      todos.find(({ id }) => id === Number(target.closest("li").dataset.id))
 
     toggledTodo.completed = target.checked
     dispatch({ type: "toggle-completion", toggledTodo })
@@ -57,7 +77,7 @@ export const TodoList = () => {
 
   const handleClick = () => {
     auth.signOut().then(() => {
-      history.push('/login')
+      history.push("/login")
     })
   }
 
@@ -65,16 +85,22 @@ export const TodoList = () => {
     dispatch({ type: "trash", id: Number(target.closest("li").dataset.id) })
   }
 
-  return (
+  return currentUser ? (
     <main className="mt-3 px-2">
-      <h2 className='has-text-centered title'>Welcome, {state?.name}!</h2>
+      <h2 className="has-text-centered title">Welcome, {state?.name}!</h2>
       <List
         todos={todos}
         checkboxHandler={handleCheckbox}
         trashHandler={handleTrash}
       />
       <Add handler={handleAdd} />
-      <button className="button is-small is-warning mt-3" type="button" onClick={handleClick}>Sign Out</button>
+      <button
+        className="button is-small is-warning mt-3"
+        type="button"
+        onClick={handleClick}
+      >
+        Sign Out
+      </button>
     </main>
-  )
+  ) : null
 }
