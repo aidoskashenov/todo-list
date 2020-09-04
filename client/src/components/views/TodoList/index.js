@@ -60,7 +60,7 @@ export const TodoList = () => {
   })
 
   useEffect(() => {
-    if (currentUser && !todos.length) {
+    if (currentUser) {
       try {
         ;(async () => {
           const todos = await todosAPI.show(currentUser)
@@ -70,7 +70,7 @@ export const TodoList = () => {
         console.error(err)
       }
     }
-  }, [currentUser, todos.length, todosAPI])
+  }, [currentUser])
 
   // Dispatch 'init' to update all of the initial todos...if any
   const handleAdd = async (event) => {
