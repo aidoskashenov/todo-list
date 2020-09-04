@@ -8,6 +8,8 @@ import { List } from "./List"
 import api from "api"
 import auth from "auth"
 
+const todosAPI = api("todos")
+
 function reducer(state, action) {
   switch (action.type) {
     case "init":
@@ -38,8 +40,6 @@ export const TodoList = () => {
   const [todos, dispatch] = useReducer(reducer, [])
 
   const [currentUser, setCurrentUser] = useState(state?.uid)
-
-  const todosAPI = api("todos")
 
   useEffect(() => {
     /**

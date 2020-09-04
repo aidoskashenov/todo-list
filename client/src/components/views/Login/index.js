@@ -12,14 +12,14 @@ import auth from "auth"
 
 import { Options } from "./Options"
 
+const usersAPI = api("users")
+
 export const Login = () => {
   const history = useHistory()
   const location = useLocation()
 
   const [forgotMode, setForgotMode] = useState(false)
   const [loginMode, setLoginMode] = useState(location.search.includes("login"))
-
-  const usersAPI = api("users")
 
   const handleToggle = (event) => {
     if (event.target.textContent.includes("Forgot")) {
