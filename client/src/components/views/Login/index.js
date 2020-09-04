@@ -33,7 +33,7 @@ export const Login = () => {
   useEffect(() => {
     auth.onAuthStateChanged((user) => {
       if (user) {
-        history.push("/todos", { currentUser: user.email })
+        history.push("/todos", { currentUser: user.uid })
       }
     })
   }, [history])
@@ -70,12 +70,12 @@ export const Login = () => {
           } else if (loginMode) {
             auth
               .signInWithEmailAndPassword(email, pass)
-              .then(({ user: { uid } }) => {
+              .then(async ({ user: { uid } }) => {
                 setSubmitting(false)
                 // Got the user - we need the name from the database
-                usersAPI.show(uid)
+                const { name } = await usersAPI.show(uid)
 
-                history.push("/todos", { uid })
+                history.push("/todos", { uid, name })
               })
               .catch((err) => {
                 console.error(err)
