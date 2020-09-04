@@ -77,8 +77,8 @@ export const TodoList = () => {
     event.preventDefault()
     const text = event.target.elements[0].value
     try {
-      const res = await todosAPI.create({ text, uid: currentUser })
-      dispatch({ id: res.insertedId, type: "add", text })
+      const { insertedId } = await todosAPI.create({ text, uid: currentUser })
+      dispatch({ id: insertedId, type: "add", text })
     } catch (err) {
       console.error(err)
     } finally {
