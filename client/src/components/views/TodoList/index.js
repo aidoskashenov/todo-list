@@ -66,7 +66,7 @@ export const TodoList = () => {
   }
 
   return (
-    <main>
+    <main className="mt-3 px-2">
       <h2 className='has-text-centered title'>Welcome, {state?.name}!</h2>
       <List
         todos={todos}
@@ -74,7 +74,7 @@ export const TodoList = () => {
         trashHandler={handleTrash}
       />
       <Add handler={handleAdd} />
-      <button className="button is-warning" type="button" onClick={handleClick}>Sign Out</button>
+      <button className="button is-small is-warning mt-3" type="button" onClick={handleClick}>Sign Out</button>
     </main>
   )
 }
