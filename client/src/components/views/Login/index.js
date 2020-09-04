@@ -72,6 +72,9 @@ export const Login = () => {
               .signInWithEmailAndPassword(email, pass)
               .then(({ user: { uid } }) => {
                 setSubmitting(false)
+                // Got the user - we need the name from the database
+                usersAPI.show(uid)
+
                 history.push("/todos", { uid })
               })
               .catch((err) => {

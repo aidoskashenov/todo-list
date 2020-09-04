@@ -20,9 +20,9 @@ export const addUser = async (newUser) => {
   }
 };
 
-export const loginUser = async (creds) => {
+export const getUser = async (uid) => {
   try {
-    return await client.db('todos').collection('users').find(creds).toArray();
+    return await client.db('todos').collection('users').findOne(uid);
   } catch (err) {
     throw new Error(err);
   }

@@ -17,7 +17,10 @@ export default (route) => ({
     return res.json()
   },
 
-  show(id) {},
+  async show(id) {
+    const res = await fetch(`${baseURL}/${route}/${id}`)
+    return res.json()
+  },
 
   getAll() {
     console.log('tring to get all', route)

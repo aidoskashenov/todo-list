@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { addUser, loginUser } from '../db';
+import { addUser, getUser } from '../db';
 
 const router = new Router();
 
@@ -8,11 +8,14 @@ router.get('/', (_, res) => {
   res.send('<h1>You have reached users test route!</h1>');
 });
 
-router.post('/create', async ({ body }, res) => {
+router.get('/:uid', async ({ params }, res) => {
   try {
-    const mongoRes = await addUser(body);
-    res.status(201);
-    res.send(mongoRes);
+    const mongoRes = await getUser(params);
+    if (!mongoRes) {
+      throw new Error('User not found!');
+    }
+    res.status(200);
+    res.send('ok');
   } catch (err) {
     res.status(500);
     res.json(err);
