@@ -56,7 +56,6 @@ export const TodoList = () => {
   }
 
   const handleClick = () => {
-    // TODO: Add a proper 'then-catch'
     auth.signOut().then(() => {
       history.push('/login')
     })
