@@ -85,7 +85,7 @@ export const Login = () => {
               .createUserWithEmailAndPassword(email, pass)
               .then(({ user: { uid } }) => {
                 // In 'then' - means we have a user.
-                // Send to Mongo the 'uid' and 'name'
+                // Send to Mongo the 'uid' and 'name'.
                 try {
                   usersAPI.create({ uid, name }).then(() => {
                     // TODO: Check Y this may be causing a mem 🧠 leak
