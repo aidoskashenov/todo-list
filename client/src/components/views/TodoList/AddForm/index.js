@@ -1,9 +1,9 @@
 import PropTypes from "prop-types"
 import React from "react"
 
-export const AddForm = ({ handler }) => {
+export const AddForm = ({ addHandler, signOutHandler }) => {
   return (
-    <form className="mt-4" onSubmit={handler}>
+    <form className="mt-4" onSubmit={addHandler}>
       <div className="field">
         <div className="control">
           <input
@@ -14,9 +14,18 @@ export const AddForm = ({ handler }) => {
         </div>
       </div>
 
-      <button className="button is-success">Add It!</button>
+      <div className="flex flex--align-center">
+        <button className="button is-success level-item">Add It!</button>
+        <button
+          className="button is-small is-warning level-item ml-2"
+          type="button"
+          onClick={signOutHandler}
+        >
+          Sign Out
+        </button>
+      </div>
     </form>
   )
 }
 
-AddForm.propTypes = { handler: PropTypes.func }
+AddForm.propTypes = { addHandler: PropTypes.func, signOutHandler: PropTypes.func }

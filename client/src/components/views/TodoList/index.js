@@ -82,7 +82,7 @@ export const TodoList = () => {
     dispatch({ type: "toggle-completion", toggledTodo })
   }
 
-  const handleClick = () => {
+  const handleSignOut = () => {
     auth.signOut().then(() => {
       history.push("/login")
     })
@@ -100,14 +100,7 @@ export const TodoList = () => {
         checkboxHandler={handleCheckbox}
         trashHandler={handleTrash}
       />
-      <Add handler={handleAdd} />
-      <button
-        className="button is-small is-warning mt-3"
-        type="button"
-        onClick={handleClick}
-      >
-        Sign Out
-      </button>
+      <Add addHandler={handleAdd} signOutHandler={handleSignOut} />
     </main>
   ) : null
 }
