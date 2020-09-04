@@ -57,7 +57,7 @@ export const TodoList = () => {
         }
       })
     }
-  }, [currentUser, history])
+  })
 
   useEffect(() => {
     if (currentUser && !todos.length) {
