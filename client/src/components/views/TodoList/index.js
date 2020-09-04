@@ -1,6 +1,6 @@
 import React, { useReducer } from "react"
 
-import {useHistory} from "react-router-dom"
+import {useHistory, useLocation} from "react-router-dom"
 
 import { AddForm as Add } from "./AddForm"
 import { List } from "./List"
@@ -30,7 +30,12 @@ function reducer(state, action) {
 
 export const TodoList = () => {
   const history = useHistory()
+  const {state} = useLocation()
   const [todos, dispatch] = useReducer(reducer, [])
+
+  if (!state) {
+    history.push('/login')
+  }
 
   const handleAdd = (event) => {
     event.preventDefault()
@@ -62,6 +67,7 @@ export const TodoList = () => {
 
   return (
     <main>
+      <h2 className='has-text-centered title'>Welcome, {state?.name}!</h2>
       <List
         todos={todos}
         checkboxHandler={handleCheckbox}
