@@ -10,8 +10,8 @@ import auth from "auth"
 
 function reducer(state, action) {
   switch (action.type) {
-    // TODO: Update this to allow multiple add an Array of TODOs.
-    // Add a new 'action.type' called 'init'
+    case "init":
+      return state.concat(action.todos)
     case "add":
       return state.concat({
         id: action.id,
@@ -58,6 +58,19 @@ export const TodoList = () => {
       })
     }
   }, [currentUser, history])
+
+  useEffect(() => {
+    if (currentUser && !todos.length) {
+      try {
+        ;(async () => {
+          const todos = await todosAPI.show(currentUser)
+          dispatch({ todos, type: "init" })
+        })()
+      } catch (err) {
+        console.error(err)
+      }
+    }
+  }, [currentUser, todos.length, todosAPI])
 
   // Dispatch 'init' to update all of the initial todos...if any
   const handleAdd = async (event) => {

@@ -25,7 +25,7 @@ export const addTodo = async (newTodo) => {
   }
 };
 
-export const findTodosByUser = async (user) => {
+export const getTodos = async (user) => {
   try {
     return await client.db('todos').collection('todos').find(user).toArray();
   } catch (err) {

@@ -1,16 +1,19 @@
 import { Router } from 'express';
 
 import {
-  addTodo, findTodosByUser, deleteTodo, toggleCompletion,
+  addTodo, getTodos, deleteTodo, toggleCompletion,
 } from '../db';
 
 const router = new Router();
 
-router.post('/', async ({ body }, res) => {
+router.get('/:uid', async ({ params }, res) => {
   try {
-    const mongoRes = await findTodosByUser(body);
+    const mongoRes = await getTodos(params);
+    if (!mongoRes) {
+      throw new Error('User not found!');
+    }
     res.status(200);
-    res.send(mongoRes);
+    res.json(mongoRes);
   } catch (err) {
     res.status(500);
     res.json(err);

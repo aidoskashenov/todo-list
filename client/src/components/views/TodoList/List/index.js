@@ -28,7 +28,7 @@ export const List = ({ todos, checkboxHandler, trashHandler }) => {
       </p>
 
       <ul>
-        {todos.map(({ id, completed, text }) => (
+        {todos.map(({ _id: id, completed, text }) => (
           <li key={id} data-id={id} className={completed ? "completed" : null}>
             <div>
               {text} <input type="checkbox" onClick={checkboxHandler} />
