@@ -1,6 +1,6 @@
 import React, { useEffect, useReducer, useState } from "react"
 
-import { useHistory, useLocation } from "react-router-dom"
+import { useHistory, useLocation, useParams } from "react-router-dom"
 
 import { AddForm as Add } from "./AddForm"
 import { List } from "./List"
@@ -36,10 +36,11 @@ function reducer(state, action) {
 export const TodoList = () => {
   const history = useHistory()
   const { state } = useLocation()
+  const { uid } = useParams()
 
   const [todos, dispatch] = useReducer(reducer, [])
 
-  const [currentUser, setCurrentUser] = useState(state?.uid)
+  const [currentUser, setCurrentUser] = useState(uid)
 
   useEffect(() => {
     /**

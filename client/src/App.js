@@ -19,7 +19,7 @@ export const App = () => {
           <Login />
         </Route>
 
-        <Route exact path="/todos">
+        <Route exact path="/todos/:uid">
           <Header />
           <List />
         </Route>

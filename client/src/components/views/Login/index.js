@@ -36,7 +36,7 @@ export const Login = () => {
         try {
           const { uid } = user
           const { name } = await usersAPI.show(uid)
-          history.push("/todos", { uid, name })
+          history.push(`/todos/${uid}`, { name })
         } catch (err) {
           console.error(err)
         }
