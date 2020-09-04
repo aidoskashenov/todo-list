@@ -28,12 +28,12 @@ export const Footer = () => (
             CodeFinity
           </a>
         </p>
-        <div className="level">
+        <div>
           <a
             href="https://github.com/manavm1990"
             target="_blank"
             rel="noopener noreferrer"
-            className="level-item mx-2"
+            className="mx-2"
           >
             <FontAwesomeIcon icon={["fab", "github"]} />
           </a>
@@ -41,12 +41,12 @@ export const Footer = () => (
             href="https://www.linkedin.com/in/manavm1990/"
             target="_blank"
             rel="noopener noreferrer"
-            className="level-item mx-2"
+            className="mx-2"
           >
             <FontAwesomeIcon icon={["fab", "linkedin"]} />
           </a>
           <a
-            className="level-item mx-2"
+            className="mx-2"
             href="https://twitter.com/GoCodeFinity"
             target="_blank"
             rel="noopener noreferrer"
