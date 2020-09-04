@@ -108,6 +108,9 @@ export const TodoList = () => {
   return currentUser ? (
     <main className="mt-3 px-2">
       <h2 className="has-text-centered title">Welcome, {state?.name}!</h2>
+        <button className="button is-text is-size-7" onClick={handleSignOut}>
+          Not {state?.name}?
+        </button>
       <List
         todos={todos}
         checkboxHandler={handleCheckbox}
