@@ -31,6 +31,7 @@ function reducer(state, action) {
 export const TodoList = () => {
   const history = useHistory()
   const {state} = useLocation()
+
   const [todos, dispatch] = useReducer(reducer, [])
 
   if (!state) {
