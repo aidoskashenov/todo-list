@@ -19,10 +19,6 @@ export const List = ({ todos, checkboxHandler, trashHandler }) => {
 
   return (
     <Fragment>
-      <p className="has-text-centered">
-        {new Date().toLocaleDateString()}&nbsp;
-      </p>
-
       <p className={className}>
         {completedCount} / {todosCount}
       </p>
