@@ -81,7 +81,7 @@ export const TodoList = () => {
     try {
       const { insertedId } = await todosAPI.create({ text, uid: currentUser, completed: false })
       target.reset()
-      dispatch({ id: insertedId, type: "add", text })
+      dispatch({ type: "add", id: insertedId, text })
     } catch (err) {
       console.error(err)
     }
