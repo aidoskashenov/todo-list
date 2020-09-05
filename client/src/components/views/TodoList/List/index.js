@@ -26,14 +26,13 @@ export const List = ({ todos, checkboxHandler, trashHandler }) => {
       <ul>
         {todos.map(({ _id: id, completed, text }) => (
           <li key={id} data-id={id} className={completed ? "completed" : null}>
-            <div>
-              {text} <input type="checkbox" onClick={checkboxHandler} />
-              <FontAwesomeIcon
-                icon={faTrash}
-                className="has-text-danger ml-2"
-                onClick={trashHandler}
-              />
-            </div>
+            <span className="mr-1">{text}</span>&nbsp;
+            <input type="checkbox" onClick={checkboxHandler} />&nbsp;
+            <FontAwesomeIcon
+              icon={faTrash}
+              className="has-text-danger ml-2"
+              onClick={trashHandler}
+            />
           </li>
         ))}
       </ul>

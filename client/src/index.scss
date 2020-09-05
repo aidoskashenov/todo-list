@@ -3,6 +3,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-input {
+input:not(li > input) {
   width: 100%;
 }

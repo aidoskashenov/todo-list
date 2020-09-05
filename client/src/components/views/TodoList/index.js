@@ -76,7 +76,7 @@ export const TodoList = () => {
   // Dispatch 'init' to update all of the initial todos...if any
   const handleAdd = async (event) => {
     event.preventDefault()
-    const { target } = event;
+    const { target } = event
     const text = target.elements[0].value
     try {
       const { insertedId } = await todosAPI.create({ text, uid: currentUser })
@@ -114,7 +114,7 @@ export const TodoList = () => {
           Not {state?.name}?
         </button>
       </div>
-      <div className="divider">{new Date().toLocaleDateString()}</div>
+      <p className="divider is-size-3">{new Date().toLocaleDateString()}</p>
 
       <List
         todos={todos}
