@@ -46,9 +46,12 @@ export const toggleCompletion = async (completionStatus, id) => {
   }
 };
 
-export const deleteTodo = async (todo) => {
+export const deleteTodo = async (id) => {
   try {
-    return await client.db('todos').collection('todos').deleteOne(todo);
+    return await client
+      .db('todos')
+      .collection('todos')
+      .deleteOne({ _id: ObjectID(id) });
   } catch (err) {
     throw new Error(err);
   }

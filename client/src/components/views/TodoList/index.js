@@ -104,7 +104,13 @@ export const TodoList = () => {
   }
 
   const handleTrash = ({ target }) => {
-    dispatch({ type: "trash", id: target.closest("li").dataset.id })
+    const id = target.closest("li").dataset.id
+    try {
+      todosAPI.delete(id)
+      dispatch({ type: "trash", id })
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   return currentUser ? (

@@ -40,9 +40,9 @@ router.patch('/', async ({ body: { payload, id } }, res) => {
   }
 });
 
-router.delete('/', async ({ body }, res) => {
+router.delete('/', async ({ body: { id } }, res) => {
   try {
-    const mongoRes = await deleteTodo(body);
+    const mongoRes = await deleteTodo(id);
     res.status(204);
     res.json(mongoRes);
   } catch (err) {

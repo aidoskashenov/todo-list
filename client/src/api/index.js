@@ -44,5 +44,18 @@ export default (route) => ({
     }
   },
 
-  delete(id) {},
+  async delete(id) {
+    try {
+      const res = await fetch(`${baseURL}/${route}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ id })
+      })
+      return await res.json()
+    } catch(err) {
+      console.error(err)
+  }
+  },
 })
