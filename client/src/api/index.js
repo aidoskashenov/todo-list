@@ -14,7 +14,7 @@ export default (route) => ({
         },
         body: JSON.stringify(payload),
       })
-
+      return await res.json()
     } catch (err) {
       console.error(err)
     }
@@ -23,7 +23,7 @@ export default (route) => ({
   async show(id) {
     try {
       const res = await fetch(`${baseURL}/${route}/${id}`)
-    return res.json()
+      return await res.json()
     } catch (err) {
       console.error(err)
     }
