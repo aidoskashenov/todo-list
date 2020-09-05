@@ -104,7 +104,7 @@ export const TodoList = () => {
   }
 
   const handleTrash = ({ target }) => {
-    dispatch({ type: "trash", id: Number(target.closest("li").dataset.id) })
+    dispatch({ type: "trash", id: target.closest("li").dataset.id })
   }
 
   return currentUser ? (
