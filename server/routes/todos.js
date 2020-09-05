@@ -44,7 +44,7 @@ router.delete('/', async ({ body }, res) => {
   try {
     const mongoRes = await deleteTodo(body);
     res.status(204);
-    res.send(mongoRes);
+    res.json(mongoRes);
   } catch (err) {
     res.status(500);
   }
