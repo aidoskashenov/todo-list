@@ -90,9 +90,10 @@ export const TodoList = () => {
   const handleCheckbox = ({ target }) => {
     const toggledTodo =
       // Go through the current 'todos' and find the one whose id matches the one that was clicked on (using the closest 'li' to get that 'id'.)
-      todos.find(({ id }) => id === Number(target.closest("li").dataset.id))
+      todos.find(({ _id: id }) => id === target.closest("li").dataset.id)
 
     toggledTodo.completed = target.checked
+    todosAPI.update(target.checked, toggledTodo._id)
     dispatch({ type: "toggle-completion", toggledTodo })
   }
 

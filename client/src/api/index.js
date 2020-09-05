@@ -29,11 +29,20 @@ export default (route) => ({
     }
   },
 
-  getAll() {
-    console.log('tring to get all', route)
+  async update(payload, id) {
+    try {
+      const res = await fetch(`${baseURL}/${route}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ payload, id }),
+      })
+      return await res.json()
+    } catch (err) {
+      console.error(err)
+    }
   },
-
-  update(payload, id) {},
 
   delete(id) {},
 })

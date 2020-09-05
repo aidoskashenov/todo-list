@@ -30,11 +30,11 @@ router.post('/create', async ({ body }, res) => {
   }
 });
 
-router.patch('/', async ({ body }, res) => {
+router.patch('/', async ({ body: { payload, id } }, res) => {
   try {
-    const mongoRes = await toggleCompletion(body.todo, body.completion);
+    const mongoRes = await toggleCompletion(payload, id);
     res.status(204);
-    res.send(mongoRes);
+    res.json(mongoRes);
   } catch (err) {
     res.status(500);
   }

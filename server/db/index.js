@@ -1,3 +1,5 @@
+import { ObjectID } from 'mongodb';
+
 import client from './client';
 
 export const addUser = async (newUser) => {
@@ -33,12 +35,12 @@ export const getTodos = async (user) => {
   }
 };
 
-export const toggleCompletion = async (todo, completionStatus) => {
+export const toggleCompletion = async (completionStatus, id) => {
   try {
     return await client
       .db('todos')
       .collection('todos')
-      .updateOne(todo, { $set: { completed: completionStatus } });
+      .updateOne({ _id: ObjectID(id) }, { $set: { completed: completionStatus } });
   } catch (err) {
     throw new Error(err);
   }
