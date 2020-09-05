@@ -16,7 +16,7 @@ function reducer(state, action) {
       return state.concat(action.todos)
     case "add":
       return state.concat({
-        id: action.id,
+        _id: action.id,
         completed: false,
         text: action.text,
       })
@@ -24,10 +24,10 @@ function reducer(state, action) {
       // Wrap 'case' in blocks for proper scoping of lexical bindings (https://eslint.org/docs/rules/no-case-declarations)
       const { toggledTodo } = action
       // 'filter' out all of the other 'todos' and then 're-add' the toggledTodo (with the updated 'completed')
-      return state.filter(({ id }) => id !== toggledTodo.id).concat(toggledTodo)
+      return state.filter(({ _id: id }) => id !== toggledTodo._id).concat(toggledTodo)
     }
     case "trash":
-      return state.filter(({ id }) => id !== action.id)
+      return state.filter(({ _id: id }) => id !== action.id)
     default:
       return state
   }
