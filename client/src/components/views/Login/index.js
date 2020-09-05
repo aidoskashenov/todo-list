@@ -119,7 +119,7 @@ export const Login = () => {
                   Name
                 </label>
                 <div className="control mx-2 my-1">
-                  <Field name="name" type="text" />
+                  <Field name="name" type="text" className="w-100" />
                   <p className="help is-danger">
                     <ErrorMessage name="name" />
                   </p>
@@ -132,7 +132,7 @@ export const Login = () => {
                 Email
               </label>
               <div className="control mx-2 my-1">
-                <Field name="email" type="email" />
+                <Field name="email" type="email" className="w-100" />
                 <ErrorMessage name="email" />
               </div>
             </div>
@@ -143,7 +143,7 @@ export const Login = () => {
                   Password
                 </label>
                 <div className="control mx-2 my-1">
-                  <Field name="pass" type="password" />
+                  <Field name="pass" type="password" className="w-100" />
                   <ErrorMessage name="pass" />
                 </div>
               </div>
