@@ -1,6 +1,6 @@
 import React from "react"
 
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
+import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom"
 
 import { Header, List, Footer, Home, Login, Four04 } from "./components"
 
@@ -17,6 +17,10 @@ export const App = () => {
         <Route exact path="/login">
           <Header />
           <Login />
+        </Route>
+
+        <Route exact path="/create-account">
+          <Redirect to={{ pathname:"/login", state: { referrer: "create-account" } }} />
         </Route>
 
         <Route exact path="/todos/:uid">

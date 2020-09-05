@@ -19,7 +19,9 @@ export const Login = () => {
   const location = useLocation()
 
   const [forgotMode, setForgotMode] = useState(false)
-  const [loginMode, setLoginMode] = useState(location.search.includes("login"))
+
+  // 'loginMode' is the default unless there is a 'referrer'
+  const [loginMode, setLoginMode] = useState(!location.state?.referrer)
 
   const handleToggle = (event) => {
     if (event.target.textContent.includes("Forgot")) {

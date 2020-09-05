@@ -16,8 +16,8 @@ export const Home = () => (
               className="image is-64x64 mb-4"
             />
             <h1 className="title">Todo List!</h1>
-            <Link className="button is-primary my-2" to="/login">Get Started</Link>
-            <Link className="button is-small my-2" to="/login?login">Login</Link>
+            <Link className="button is-primary my-2" to="/create-account">Get Started</Link>
+            <Link className="button is-small my-2" to="/login">Login</Link>
           </div>
         </div>
       </div>
