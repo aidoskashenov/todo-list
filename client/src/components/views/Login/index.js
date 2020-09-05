@@ -33,20 +33,27 @@ export const Login = () => {
   }
 
   useEffect(() => {
-    auth.onAuthStateChanged(async (user) => {
-      if (user) {
-        try {
-          const { uid } = user
-          const { name } = await usersAPI.show(uid)
-          history.push(`/todos/${uid}`, { name })
-        } catch (err) {
-          console.error(err)
+    if (status === "Loading...") {
+      auth.onAuthStateChanged(async (user) => {
+        if (user) {
+          try {
+            const { uid } = user
+            const { name } = await usersAPI.show(uid)
+            history.push(`/todos/${uid}`, { name })
+          } catch (err) {
+            console.error(err)
+          }
         }
-      }
-    })
+        setStatus("Login")
+      })
+    }
   })
 
-  return (
+  return status === "Loading..." ? (
+    <div className="is-active pageloader">
+      <span className="title">{status}</span>
+    </div>
+  ) : (
     <section className="box center mt-4 section">
       <h2 className="has-text-centered title">
         {loginMode ? "Login" : "Create Account"}
