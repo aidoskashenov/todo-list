@@ -20,7 +20,7 @@ export const App = () => {
         </Route>
 
         <Route exact path="/create-account">
-          <Redirect to={{ pathname:"/login", state: { referrer: "create-account" } }} />
+          <Redirect to={{ pathname:"/login", state: { status: "Create Account" } }} />
         </Route>
 
         <Route exact path="/todos/:uid">
