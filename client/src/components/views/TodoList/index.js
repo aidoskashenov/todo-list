@@ -24,7 +24,9 @@ function reducer(state, action) {
       // Wrap 'case' in blocks for proper scoping of lexical bindings (https://eslint.org/docs/rules/no-case-declarations)
       const { toggledTodo } = action
       // 'filter' out all of the other 'todos' and then 're-add' the toggledTodo (with the updated 'completed')
-      return state.filter(({ _id: id }) => id !== toggledTodo._id).concat(toggledTodo)
+      return state
+        .filter(({ _id: id }) => id !== toggledTodo._id)
+        .concat(toggledTodo)
     }
     case "trash":
       return state.filter(({ _id: id }) => id !== action.id)
@@ -79,7 +81,11 @@ export const TodoList = () => {
     const { target } = event
     const text = target.elements[0].value
     try {
-      const { insertedId } = await todosAPI.create({ text, uid: currentUser, completed: false })
+      const { insertedId } = await todosAPI.create({
+        text,
+        uid: currentUser,
+        completed: false,
+      })
       target.reset()
       dispatch({ type: "add", id: insertedId, text })
     } catch (err) {
@@ -93,8 +99,12 @@ export const TodoList = () => {
       todos.find(({ _id: id }) => id === target.closest("li").dataset.id)
 
     toggledTodo.completed = target.checked
-    todosAPI.update(target.checked, toggledTodo._id)
-    dispatch({ type: "toggle-completion", toggledTodo })
+    try {
+      todosAPI.update(target.checked, toggledTodo._id)
+      dispatch({ type: "toggle-completion", toggledTodo })
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   const handleSignOut = () => {

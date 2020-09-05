@@ -40,7 +40,10 @@ export const toggleCompletion = async (completionStatus, id) => {
     return await client
       .db('todos')
       .collection('todos')
-      .updateOne({ _id: ObjectID(id) }, { $set: { completed: completionStatus } });
+      .updateOne(
+        { _id: ObjectID(id) },
+        { $set: { completed: completionStatus } },
+      );
   } catch (err) {
     throw new Error(err);
   }
