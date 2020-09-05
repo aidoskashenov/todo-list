@@ -20,8 +20,8 @@ export const Login = () => {
 
   const [forgotMode, setForgotMode] = useState(false)
 
-  // 'loginMode' is the default unless there is a 'referrer'
-  const [loginMode, setLoginMode] = useState(!location.state?.referrer)
+  // 'loginMode' is the default unless there is a 'location state'
+  const [loginMode, setLoginMode] = useState(!location.state)
 
   const handleToggle = (event) => {
     if (event.target.textContent.includes("Forgot")) {
@@ -51,6 +51,9 @@ export const Login = () => {
       <h2 className="has-text-centered title">
         {loginMode ? "Login" : "Create Account"}
       </h2>
+      <h3 className="has-text-centered subtitle">
+        {forgotMode ? "Reset Password" : null}
+      </h3>
       <Formik
         initialValues={{
           email: "",
