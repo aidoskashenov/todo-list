@@ -107,7 +107,7 @@ export const TodoList = () => {
   }
 
   return currentUser ? (
-    <main className="mt-3 px-2">
+    <main className="center mt-3 px-2">
       <div className="has-text-centered mb-3">
         <h2 className="mb-0 title">Welcome, {state?.name}!</h2>
         <button className="button is-text is-size-7" onClick={handleSignOut}>
