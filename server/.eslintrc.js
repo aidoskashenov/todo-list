@@ -3,12 +3,12 @@ module.exports = {
     es2020: true,
     node: true,
   },
-  extends: ["airbnb-base"],
+  extends: ['airbnb-base'],
   parserOptions: {
     ecmaVersion: 12,
-    sourceType: "module",
+    sourceType: 'module',
   },
   rules: {
-    "import/no-unresolved": [2, { ignore: ["db"] }],
+    'import/no-unresolved': [2, { ignore: ['db'] }],
   },
-}
+};
