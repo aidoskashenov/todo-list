@@ -95,18 +95,20 @@ export const Login = () => {
             case "Login":
               auth
                 .signInWithEmailAndPassword(email, pass)
-                .then(async ({ user: { uid } }) => {
-                  // Got the user - we need the name from the database
-                  usersAPI
-                    .show(uid)
-                    .then(() => {
-                      // Let's
-                      setSubmitting(false)
-                      history.push("/todos", { uid, name })
-                    })
-                    .catch((err) => {
-                      console.error(err)
-                    })
+                .then(({ user: { uid } }) => {
+                  // Got the user - need the name from the database.
+                  // TODO: 😖 Server gets hit 2-3 times for the same request!
+                  usersAPI.show(uid)
+                  return uid
+                })
+                .then((uid) => {
+                  setSubmitting(false)
+                  // We have all of the info we need
+                  history.push(`/todos/${uid}`, { name })
+                })
+                .catch((err) => {
+                  setSubmitting(false)
+                  console.error(err)
                 })
               break
             default:
