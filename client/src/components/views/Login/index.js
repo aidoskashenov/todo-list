@@ -78,7 +78,7 @@ export const Login = () => {
             Yup.string().required("Name is required!"),
           pass:
             status !== "Reset Password" &&
-            Yup.string().min(6).required("Pass is required!"),
+            Yup.string().min(6).required("Password is required!"),
         })}
         onSubmit={({ name, email, pass }, { setSubmitting }) => {
           switch (status) {
@@ -154,7 +154,9 @@ export const Login = () => {
               </label>
               <div className="control mx-2 my-1">
                 <Field name="email" type="email" className="w-100" />
-                <ErrorMessage name="email" />
+                <p className="help is-danger">
+                  <ErrorMessage name="email" />
+                </p>
               </div>
             </div>
 
@@ -165,7 +167,9 @@ export const Login = () => {
                 </label>
                 <div className="control mx-2 my-1">
                   <Field name="pass" type="password" className="w-100" />
-                  <ErrorMessage name="pass" />
+                  <p className="help is-danger">
+                    <ErrorMessage name="pass" />
+                  </p>
                 </div>
               </div>
             ) : null}
