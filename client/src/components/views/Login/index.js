@@ -33,6 +33,7 @@ export const Login = () => {
   }
 
   useEffect(() => {
+    setNotification(null)
     /**
      * There was no 'state.status' set,
      * so we must be trying to login.
@@ -46,25 +47,26 @@ export const Login = () => {
           try {
             const { uid } = currentUser
             const res = await usersAPI.show(uid)
-            const {body: {name}} = await res.json()
+            const {
+              body: { name },
+            } = await res.json()
             history.push(`/todos/${uid}`, { name })
           } catch (err) {
             console.error(err)
           }
-        }
+        } else {
         /**
          * No user found.
          * Proceed with 'login'
          */
-        else {
           setStatus("Login")
         }
       })()
     } else {
-    /**
-     * We must be creating an account.
-     * Log out any currently logged in user.
-     */
+      /**
+       * We must be creating an account.
+       * Log out any currently logged in user.
+       */
       auth.signOut()
     }
   }, [history, status])
@@ -99,7 +101,11 @@ export const Login = () => {
               auth
                 .sendPasswordResetEmail(email)
                 .then(() => {
-                  // TODO: Create a notification to tell them to check their ✉️
+                  setSubmitting(false)
+                  setNotification({
+                    className: "is-info",
+                    text: "Check ur ✉️!",
+                  })
                 })
                 .catch((err) => {
                   setNotification({
@@ -133,7 +139,8 @@ export const Login = () => {
                     className: "is-danger",
                     text: err.message,
                   })
-                }).finally(() => {
+                })
+                .finally(() => {
                   setSubmitting(false)
                 })
               break
