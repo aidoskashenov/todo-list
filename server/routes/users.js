@@ -15,7 +15,7 @@ router.get('/:uid', async ({ params }, res) => {
       throw new Error('User not found!');
     }
     res.status(200);
-    res.json(mongoRes);
+    res.json({ body: mongoRes });
   } catch (err) {
     res.status(500);
     res.json(err);
@@ -26,7 +26,7 @@ router.post('/create', async ({ body }, res) => {
   try {
     const mongoRes = await addUser(body);
     res.status(201);
-    res.json(mongoRes);
+    res.json({ uid: body.uid, mongoRes });
   } catch (err) {
     res.status(500);
     res.json(err);

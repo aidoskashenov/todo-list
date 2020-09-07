@@ -33,28 +33,38 @@ export const Login = () => {
   }
 
   useEffect(() => {
-    // We are trying to login b/c there was no 'status' for 'initial state.'
+    /**
+     * There was no 'state.status' set,
+     * so we must be trying to login.
+     *
+     * R We already logged in?
+     */
     if (status === "Loading...") {
-      auth.onAuthStateChanged(async (user) => {
-        if (user) {
+      ;(async () => {
+        const { currentUser } = auth
+        if (currentUser) {
           try {
-            const { uid } = user
-            const { name } = await usersAPI.show(uid)
+            const { uid } = currentUser
+            const res = await usersAPI.show(uid)
+            const {body: {name}} = await res.json()
             history.push(`/todos/${uid}`, { name })
           } catch (err) {
             console.error(err)
           }
         }
-        // No 'user' - proceed with login.
-        setStatus("Login")
-      })
+        /**
+         * No user found.
+         * Proceed with 'login'
+         */
+        else {
+          setStatus("Login")
+        }
+      })()
     } else {
-      /**
-       * We must be creating a new account as
-       * "Loading..." was not set 👆🏽 b/c there was a 'status.'
-       *
-       * Logout any current user.
-       */
+    /**
+     * We must be creating an account.
+     * Log out any currently logged in user.
+     */
       auth.signOut()
     }
   }, [history, status])
@@ -113,7 +123,6 @@ export const Login = () => {
                     Please check your internet connection and/or try again later! 🤞🏽
                   `)
                   }
-                  // setSubmitting(false)
                   return res.json()
                 })
                 .then(({ body: { uid, name } }) => {
@@ -124,6 +133,7 @@ export const Login = () => {
                     className: "is-danger",
                     text: err.message,
                   })
+                }).finally(() => {
                   setSubmitting(false)
                 })
               break
