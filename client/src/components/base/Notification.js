@@ -3,7 +3,7 @@ import React from "react"
 
 export const Notification = ({ notification: { className, text } }) => (
   <p className={`notification my-3 ${className}`}>
-    <button className="delete" />
+    {/* <button className="delete" /> */}
     {text || "Some other error!"}
   </p>
 )
