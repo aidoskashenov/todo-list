@@ -6,56 +6,41 @@ const baseURL = process.env.REACT_APP_BASE_URL
 // Factory Function - 'encloses' 'route' inside of each method
 export default (route) => ({
   async create(payload) {
-    try {
-      const res = await fetch(`${baseURL}/${route}/create`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(payload),
-      })
-      return await res.json()
-    } catch (err) {
-      console.error(err)
-    }
+    const res = await fetch(`${baseURL}/${route}/create`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    })
+
+    return res
   },
 
   async show(id) {
-    try {
-      const res = await fetch(`${baseURL}/${route}/${id}`)
-      return await res.json()
-    } catch (err) {
-      console.error(err)
-    }
+    const res = await fetch(`${baseURL}/${route}/${id}`)
+    return res
   },
 
   async update(payload, id) {
-    try {
-      const res = await fetch(`${baseURL}/${route}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ payload, id }),
-      })
-      return await res.json()
-    } catch (err) {
-      console.error(err)
-    }
+    const res = await fetch(`${baseURL}/${route}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ payload, id }),
+    })
+    return res
   },
 
   async delete(id) {
-    try {
-      const res = await fetch(`${baseURL}/${route}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ id })
-      })
-      return await res.json()
-    } catch(err) {
-      console.error(err)
-  }
+    const res = await fetch(`${baseURL}/${route}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ id }),
+    })
+    return res
   },
 })

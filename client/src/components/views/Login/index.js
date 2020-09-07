@@ -11,11 +11,15 @@ import auth from "auth"
 
 import { Options } from "./Options"
 
+import { Notification } from "components/base"
+
 const usersAPI = api("users")
 
 export const Login = () => {
   const history = useHistory()
   const { state } = useLocation()
+
+  const [notification, setNotification] = useState(null)
 
   // Either we got here by clicking 'get started' or we need to check for an existing user
   const [status, setStatus] = useState(state?.status || "Loading...")
@@ -49,12 +53,11 @@ export const Login = () => {
        * We must be creating a new account as
        * "Loading..." was not set 👆🏽 b/c there was a 'status.'
        *
-       * Let's make sure to logout any motherclucker that might be logged in and
-       * let the user create an account.
+       * Logout any current user.
        */
       auth.signOut()
     }
-  })
+  }, [history, status])
 
   return status === "Loading..." ? (
     <div className="is-active pageloader">
@@ -89,45 +92,68 @@ export const Login = () => {
                   // TODO: Create a notification to tell them to check their ✉️
                 })
                 .catch((err) => {
-                  console.error(err)
+                  setNotification({
+                    className: "is-danger",
+                    text:
+                      err.message ||
+                      `Unable to reset passwords ATM! 😞🙇🏽‍♂️
+                    Please check your internet connection and/or try again later! 🤞🏽
+                  `,
+                  })
+                  setSubmitting(false)
                 })
               break
             case "Login":
               auth
                 .signInWithEmailAndPassword(email, pass)
-                .then(({ user: { uid } }) => {
-                  // Got the user - need the name from the database.
-                  // TODO: 😖 Server gets hit 2-3 times for the same request!
-                  usersAPI.show(uid)
-                  return uid
+                .then(({ user: { uid } }) => usersAPI.show(uid))
+                .then((res) => {
+                  if (res.status > 400) {
+                    throw new Error(`Unable to login ATM! 😞🙇🏽‍♂️
+                    Please check your internet connection and/or try again later! 🤞🏽
+                  `)
+                  }
+                  // setSubmitting(false)
+                  return res.json()
                 })
-                .then((uid) => {
-                  setSubmitting(false)
-                  // We have all of the info we need
+                .then(({ body: { uid, name } }) => {
                   history.push(`/todos/${uid}`, { name })
                 })
                 .catch((err) => {
+                  setNotification({
+                    className: "is-danger",
+                    text: err.message,
+                  })
                   setSubmitting(false)
-                  console.error(err)
                 })
               break
             default:
               auth
                 .createUserWithEmailAndPassword(email, pass)
-                .then(({ user: { uid } }) => {
-                  usersAPI.create({ uid, name })
-                })
-                .then(() => {
-                  setSubmitting(false)
-                  setStatus("Loading...")
-                })
-                .catch((err) => {
-                  setSubmitting(false)
-                  setStatus(`
-                    ${err.message}
-                    Unable to create a user ATM! 😞🙇🏽‍♂️
+                .then(({ user: { uid } }) => usersAPI.create({ uid, name }))
+                .then((res) => {
+                  if (res.status > 400) {
+                    throw new Error(`Unable to create an account ATM! 😞🙇🏽‍♂️
                     Please check your internet connection and/or try again later! 🤞🏽
                   `)
+                  }
+                  setSubmitting(false)
+                  return res.json()
+                })
+                .then(({ uid }) => {
+                  history.push(`/todos/${uid}`, { name })
+                })
+                .catch((err) => {
+                  auth.currentUser.delete().then(() => {
+                    console.info(
+                      "Removing any newly created auth user to preserve data integrity!"
+                    )
+                  })
+                  setNotification({
+                    className: "is-danger",
+                    text: err.message,
+                  })
+                  setSubmitting(false)
                 })
           }
         }}
@@ -185,6 +211,7 @@ export const Login = () => {
         )}
       </Formik>
       <Options status={status} handler={handleStatus} />
+      {notification ? <Notification notification={notification} /> : null}
     </section>
   )
 }
