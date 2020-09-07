@@ -41,7 +41,7 @@ export const Login = () => {
      * R We already logged in?
      */
     if (status === "Loading...") {
-      ; (async () => {
+      ;(async () => {
         // Returns 'null' when doing typing 'url' into browser bar. 🤷🏽‍♂️
         const { currentUser } = auth
         if (currentUser) {
@@ -109,6 +109,7 @@ export const Login = () => {
                   })
                 })
                 .catch((err) => {
+                  setSubmitting(false)
                   setNotification({
                     className: "is-danger",
                     text:
@@ -117,7 +118,6 @@ export const Login = () => {
                     Please check your internet connection and/or try again later! 🤞🏽
                   `,
                   })
-                  setSubmitting(false)
                 })
               break
             case "Login":
@@ -136,13 +136,11 @@ export const Login = () => {
                   history.push(`/todos/${uid}`, { name })
                 })
                 .catch((err) => {
+                  setSubmitting(false)
                   setNotification({
                     className: "is-danger",
                     text: err.message,
                   })
-                })
-                .finally(() => {
-                  setSubmitting(false)
                 })
               break
             default:
@@ -155,13 +153,13 @@ export const Login = () => {
                     Please check your internet connection and/or try again later! 🤞🏽
                   `)
                   }
-                  setSubmitting(false)
                   return res.json()
                 })
                 .then(({ uid }) => {
                   history.push(`/todos/${uid}`, { name })
                 })
                 .catch((err) => {
+                  setSubmitting(false)
                   auth.currentUser.delete().then(() => {
                     console.info(
                       "Removing any newly created auth user to preserve data integrity!"
@@ -171,7 +169,6 @@ export const Login = () => {
                     className: "is-danger",
                     text: err.message,
                   })
-                  setSubmitting(false)
                 })
           }
         }}
