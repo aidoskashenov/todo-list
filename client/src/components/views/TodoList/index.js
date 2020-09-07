@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from "react"
+import React, { useEffect, useReducer } from "react"
 
 import { useHistory, useLocation, useParams } from "react-router-dom"
 
@@ -42,38 +42,20 @@ export const TodoList = () => {
 
   const [todos, dispatch] = useReducer(reducer, [])
 
-  const [currentUser, setCurrentUser] = useState(uid)
-
   useEffect(() => {
-    /**
-     * If we don't have a currentUser,
-     * then maybe user entered the URL directly bypassing (history.push).
-     *
-     * We need to use 'auth' to confirm if there is a user, or we need to send them back to 'login.'
-     */
-    if (!currentUser) {
-      auth.onAuthStateChanged((user) => {
-        if (user) {
-          setCurrentUser(user.uid)
-        } else {
-          history.push("/login")
+    try {
+      ;(async () => {
+        const res = await todosAPI.show(uid)
+        if (res.status > 400) {
+          throw new Error(res)
         }
-      })
+        const todos = await res.json()
+        dispatch({ todos, type: "init" })
+      })()
+    } catch (err) {
+      console.error(err)
     }
-  })
-
-  useEffect(() => {
-    if (currentUser) {
-      try {
-        ;(async () => {
-          const todos = await todosAPI.show(currentUser)
-          dispatch({ todos, type: "init" })
-        })()
-      } catch (err) {
-        console.error(err)
-      }
-    }
-  }, [currentUser])
+  }, [uid])
 
   // Dispatch 'init' to update all of the initial todos...if any
   const handleAdd = async (event) => {
@@ -81,11 +63,15 @@ export const TodoList = () => {
     const { target } = event
     const text = target.elements[0].value
     try {
-      const { insertedId } = await todosAPI.create({
+      const res = await todosAPI.create({
         text,
-        uid: currentUser,
+        uid,
         completed: false,
       })
+      if (res.status > 400) {
+        throw new Error(res)
+      }
+      const { insertedId }  = await res.json()
       target.reset()
       dispatch({ type: "add", id: insertedId, text })
     } catch (err) {
@@ -100,7 +86,10 @@ export const TodoList = () => {
 
     toggledTodo.completed = target.checked
     try {
-      todosAPI.update(target.checked, toggledTodo._id)
+      const res = todosAPI.update(target.checked, toggledTodo._id)
+      if (res.status > 400) {
+        throw new Error(res)
+      }
       dispatch({ type: "toggle-completion", toggledTodo })
     } catch (err) {
       console.error(err)
@@ -123,7 +112,7 @@ export const TodoList = () => {
     }
   }
 
-  return currentUser ? (
+  return (
     <main className="center mt-3 px-2">
       <div className="has-text-centered mb-3">
         <h2 className="mb-0 title">Welcome, {state?.name}!</h2>
@@ -140,5 +129,5 @@ export const TodoList = () => {
       />
       <Add addHandler={handleAdd} signOutHandler={handleSignOut} />
     </main>
-  ) : null
+  )
 }
