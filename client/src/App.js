@@ -20,12 +20,18 @@ export const App = () => {
         </Route>
 
         <Route exact path="/create-account">
-          <Redirect to={{ pathname:"/login", state: { status: "Create Account" } }} />
+          <Redirect
+            to={{ pathname: "/login", state: { status: "Create Account" } }}
+          />
         </Route>
 
         <Route exact path="/todos/:uid">
           <Header />
           <List />
+        </Route>
+
+        <Route exact path="/todos">
+          <Redirect to={{ pathname: "/login" }} />
         </Route>
 
         <Route>

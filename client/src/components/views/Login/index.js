@@ -41,7 +41,8 @@ export const Login = () => {
      * R We already logged in?
      */
     if (status === "Loading...") {
-      ;(async () => {
+      ; (async () => {
+        // Returns 'null' when doing typing 'url' into browser bar. 🤷🏽‍♂️
         const { currentUser } = auth
         if (currentUser) {
           try {
@@ -55,10 +56,10 @@ export const Login = () => {
             console.error(err)
           }
         } else {
-        /**
-         * No user found.
-         * Proceed with 'login'
-         */
+          /**
+           * No user found.
+           * Proceed with 'login'
+           */
           setStatus("Login")
         }
       })()
