@@ -57,14 +57,6 @@
     "rules": {
       "declaration-colon-newline-after": null,
       "number-leading-zero": null,
-      "order/order": [
-        "custom-properties",
-        "declarations"
-      ],
-      "order/properties-order": [
-        "width",
-        "height"
-      ],
       "order/properties-alphabetical-order": true,
       "scss/at-import-no-partial-leading-underscore": null,
       "string-quotes": "double",
