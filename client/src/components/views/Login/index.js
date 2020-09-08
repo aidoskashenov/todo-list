@@ -127,7 +127,7 @@ export const Login = () => {
                 .then((res) => {
                   if (res.status > 400) {
                     throw new Error(`Unable to login ATM! 😞🙇🏽‍♂️
-                    Please check your internet connection and/or try again later! 🤞🏽
+                    Please check your internet connection and/or contact support!
                   `)
                   }
                   return res.json()
