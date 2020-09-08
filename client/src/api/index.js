@@ -6,7 +6,7 @@ const baseURL = process.env.REACT_APP_BASE_URL
 // Factory Function - 'encloses' 'route' inside of each method
 export default (route) => ({
   async create(payload) {
-    const res = await fetch(`${baseURL}/${route}/create`, {
+    const res = await fetch(`${baseURL}/${route}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

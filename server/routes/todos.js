@@ -20,7 +20,7 @@ router.get('/:uid', async ({ params }, res) => {
   }
 });
 
-router.post('/create', async ({ body }, res) => {
+router.post('/', async ({ body }, res) => {
   try {
     const mongoRes = await addTodo(body);
     res.status(201);

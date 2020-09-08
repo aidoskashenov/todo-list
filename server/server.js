@@ -18,8 +18,8 @@ app.get('/', (_, res) => {
 app.use(cors());
 app.use(express.json());
 
-app.use('/todos', todos);
 app.use('/users', users);
+app.use('/todos', todos);
 
 app.listen(process.env.PORT, () => {
   console.log('Server 🏃🏽‍♂️');
