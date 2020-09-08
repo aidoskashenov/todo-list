@@ -18,7 +18,7 @@ router.get('/:uid', async ({ params }, res) => {
     res.json({ body: mongoRes });
   } catch (err) {
     res.status(500);
-    res.json(err);
+    console.error(err);
   }
 });
 
@@ -29,7 +29,7 @@ router.post('/create', async ({ body }, res) => {
     res.json({ uid: body.uid, mongoRes });
   } catch (err) {
     res.status(500);
-    res.json(err);
+    console.error(err);
   }
 });
 
