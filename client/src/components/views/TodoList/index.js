@@ -1,9 +1,11 @@
-import React, { useEffect, useReducer } from "react"
+import React, { useEffect, useReducer, useState } from "react"
 
 import { useHistory, useLocation, useParams } from "react-router-dom"
 
 import { AddForm as Add } from "./AddForm"
 import { List } from "./List"
+
+import { Notification } from "components/base"
 
 import api from "api"
 import auth from "auth"
@@ -40,6 +42,8 @@ export const TodoList = () => {
   const { state } = useLocation()
   const { uid } = useParams()
 
+  const [notification, setNotification] = useState(null)
+
   const [todos, dispatch] = useReducer(reducer, [])
 
   useEffect(() => {
@@ -47,13 +51,17 @@ export const TodoList = () => {
       ;(async () => {
         const res = await todosAPI.show(uid)
         if (res.status > 400) {
-          throw new Error(res)
+          throw new Error(`Unable to get ur Todos ATM! 😞🙇🏽‍♂️
+                    Please check your internet connection and/or try again later! 🤞🏽`)
         }
         const todos = await res.json()
         dispatch({ todos, type: "init" })
       })()
     } catch (err) {
-      console.error(err)
+      setNotification({
+        className: "is-danger",
+        text: err.message,
+      })
     }
   }, [uid])
 
@@ -71,7 +79,7 @@ export const TodoList = () => {
       if (res.status > 400) {
         throw new Error(res)
       }
-      const { insertedId }  = await res.json()
+      const { insertedId } = await res.json()
       target.reset()
       dispatch({ type: "add", id: insertedId, text })
     } catch (err) {
@@ -128,6 +136,7 @@ export const TodoList = () => {
         trashHandler={handleTrash}
       />
       <Add addHandler={handleAdd} signOutHandler={handleSignOut} />
+      {notification ? <Notification notification={notification} /> : null}
     </main>
   )
 }
