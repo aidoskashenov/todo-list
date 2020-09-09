@@ -2,6 +2,8 @@ import React, { useEffect, useReducer, useState } from "react"
 
 import { useHistory, useLocation, useParams } from "react-router-dom"
 
+import { Image, Transformation } from "cloudinary-react"
+
 import { AddForm as Add } from "./AddForm"
 import { List } from "./List"
 
@@ -74,11 +76,12 @@ export const TodoList = () => {
 
     const fd = new FormData()
     fd.append("file", target.elements[1].files[0])
-    fd.append("upload_preset", 'todo-list')
+    fd.append("upload_preset", "todo-list")
 
     const res = await cloudinary.upload(fd)
 
     const { secure_url } = await res.json()
+    // TODO: Send this over to over to Mongo
     console.log(secure_url)
 
     // const text = target.elements[0].value
@@ -149,6 +152,14 @@ export const TodoList = () => {
       />
       <Add addHandler={handleAdd} signOutHandler={handleSignOut} />
       {notification ? <Notification notification={notification} /> : null}
+
+      <Image
+        cloud_name="codefinity"
+        publicId="v1599678464/todo-list/test_gil1wu.jpg"
+        secure="false"
+      >
+        <Transformation width="200" crop="scale" angle="10" />
+      </Image>
     </main>
   )
 }
