@@ -7,7 +7,9 @@ import { List } from "./List"
 
 import { Notification } from "components/base"
 
-import api from "api"
+import api from "api/routes"
+import cloudinary from "api/cloudinary"
+
 import auth from "auth"
 
 const todosAPI = api("todos")
@@ -74,12 +76,9 @@ export const TodoList = () => {
     fd.append("file", target.elements[1].files[0])
     fd.append("upload_preset", 'todo-list')
 
-    const res = await fetch("https://api.cloudinary.com/v1_1/codefinity/upload", {
-      method:"POST",
-      body: fd
-    })
+    const res = await cloudinary.upload(fd)
 
-    const { secure_url } = await res.json
+    const { secure_url } = await res.json()
     console.log(secure_url)
 
     // const text = target.elements[0].value
