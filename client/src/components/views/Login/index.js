@@ -6,7 +6,7 @@ import { useHistory, useLocation } from "react-router-dom"
 
 import * as Yup from "yup"
 
-import api from "api"
+import api from "api/routes"
 import auth from "auth"
 
 import { Options } from "./Options"
