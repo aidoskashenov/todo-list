@@ -69,22 +69,35 @@ export const TodoList = () => {
   const handleAdd = async (event) => {
     event.preventDefault()
     const { target } = event
-    const text = target.elements[0].value
-    try {
-      const res = await todosAPI.create({
-        text,
-        uid,
-        completed: false,
-      })
-      if (res.status > 400) {
-        throw new Error(res)
-      }
-      const { insertedId } = await res.json()
-      target.reset()
-      dispatch({ type: "add", id: insertedId, text })
-    } catch (err) {
-      console.error(err)
-    }
+
+    const fd = new FormData()
+    fd.append("file", target.elements[1].files[0])
+    fd.append("upload_preset", 'todo-list')
+
+    const res = await fetch("https://api.cloudinary.com/v1_1/codefinity/upload", {
+      method:"POST",
+      body: fd
+    })
+
+    const { secure_url } = await res.json
+    console.log(secure_url)
+
+    // const text = target.elements[0].value
+    // try {
+    //   const res = await todosAPI.create({
+    //     text,
+    //     uid,
+    //     completed: false,
+    //   })
+    //   if (res.status > 400) {
+    //     throw new Error(res)
+    //   }
+    //   const { insertedId } = await res.json()
+    //   target.reset()
+    //   dispatch({ type: "add", id: insertedId, text })
+    // } catch (err) {
+    //   console.error(err)
+    // }
   }
 
   const handleCheckbox = ({ target }) => {
