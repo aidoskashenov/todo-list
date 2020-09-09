@@ -1,6 +1,9 @@
 import PropTypes from "prop-types"
 import React from "react"
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faCamera } from "@fortawesome/free-solid-svg-icons"
+
 export const AddForm = ({ addHandler, signOutHandler }) => {
   return (
     <form className="mt-4" onSubmit={addHandler}>
@@ -11,6 +14,24 @@ export const AddForm = ({ addHandler, signOutHandler }) => {
             type="text"
             placeholder="Enter a new Todo Item"
           />
+        </div>
+      </div>
+
+      <div className="field">
+        <div className="file is-primary">
+          <label className="file-label">
+            <input className="file-input" type="file" />
+            <span className="file-cta">
+              <span className="file-icon">
+                <FontAwesomeIcon
+                  icon={faCamera}
+                  className="has-text-info ml-2"
+                />
+              </span>
+              &nbsp;
+              <span className="file-label">Upload photo/doc</span>
+            </span>
+          </label>
         </div>
       </div>
 
@@ -28,4 +49,7 @@ export const AddForm = ({ addHandler, signOutHandler }) => {
   )
 }
 
-AddForm.propTypes = { addHandler: PropTypes.func, signOutHandler: PropTypes.func }
+AddForm.propTypes = {
+  addHandler: PropTypes.func,
+  signOutHandler: PropTypes.func,
+}
