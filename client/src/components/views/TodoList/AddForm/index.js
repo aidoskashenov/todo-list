@@ -2,7 +2,7 @@ import PropTypes from "prop-types"
 import React from "react"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faCamera } from "@fortawesome/free-solid-svg-icons"
+import { faCamera, faMap } from "@fortawesome/free-solid-svg-icons"
 
 export const AddForm = ({ addHandler, widgetHandler, signOutHandler }) => {
   return (
@@ -17,11 +17,28 @@ export const AddForm = ({ addHandler, widgetHandler, signOutHandler }) => {
         </div>
       </div>
 
-      <div className="control">
-        <button className="button is-primary" onClick={widgetHandler} type="button">
-          <FontAwesomeIcon icon={faCamera} />&nbsp;
-          Add Photo/Doc
-        </button>
+      <div className="field is-grouped mt-3 flex--align-center">
+        <div className="control">
+          <button
+            className="button is-primary"
+            onClick={widgetHandler}
+            type="button"
+          >
+            <FontAwesomeIcon icon={faCamera} />
+            &nbsp; Add Photo/Doc
+          </button>
+        </div>
+
+        <div className="control">
+          <button
+            className="button is-primary"
+            onClick={widgetHandler}
+            type="button"
+          >
+            <FontAwesomeIcon icon={faMap} />
+            &nbsp; Add Location
+          </button>
+        </div>
       </div>
 
       <div className="field is-grouped mt-3 flex--align-center">
@@ -48,5 +65,5 @@ export const AddForm = ({ addHandler, widgetHandler, signOutHandler }) => {
 AddForm.propTypes = {
   addHandler: PropTypes.func,
   signOutHandler: PropTypes.func,
-  widgetHandler: PropTypes.func
+  widgetHandler: PropTypes.func,
 }
