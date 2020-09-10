@@ -4,7 +4,7 @@ import React from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCamera } from "@fortawesome/free-solid-svg-icons"
 
-export const AddForm = ({ addHandler, signOutHandler }) => {
+export const AddForm = ({ addHandler, widgetHandler, signOutHandler }) => {
   return (
     <form className="mt-4" onSubmit={addHandler}>
       <div className="field">
@@ -18,7 +18,7 @@ export const AddForm = ({ addHandler, signOutHandler }) => {
       </div>
 
       <div className="control">
-        <button className="button is-primary">
+        <button className="button is-primary" onClick={widgetHandler} type="button">
           <FontAwesomeIcon icon={faCamera} />&nbsp;
           Add Photo/Doc
         </button>
@@ -48,4 +48,5 @@ export const AddForm = ({ addHandler, signOutHandler }) => {
 AddForm.propTypes = {
   addHandler: PropTypes.func,
   signOutHandler: PropTypes.func,
+  widgetHandler: PropTypes.func
 }

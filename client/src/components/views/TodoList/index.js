@@ -2,15 +2,12 @@ import React, { useEffect, useReducer, useState } from "react"
 
 import { useHistory, useLocation, useParams } from "react-router-dom"
 
-import { Image, Transformation } from "cloudinary-react"
-
 import { AddForm as Add } from "./AddForm"
 import { List } from "./List"
 
 import { Notification } from "components/base"
 
 import api from "api/routes"
-import cloudinary from "api/cloudinary"
 
 import auth from "auth"
 
@@ -46,6 +43,7 @@ export const TodoList = () => {
   const { state } = useLocation()
   const { uid } = useParams()
 
+  const [imgURL, setImgURL] = useState("")
   const [notification, setNotification] = useState(null)
 
   const [todos, dispatch] = useReducer(reducer, [])
@@ -74,32 +72,23 @@ export const TodoList = () => {
     event.preventDefault()
     const { target } = event
 
-    const fd = new FormData()
-    fd.append("file", target.elements[1].files[0])
-    fd.append("upload_preset", "todo-list")
-
-    const res = await cloudinary.upload(fd)
-
-    const { secure_url } = await res.json()
-    // TODO: Send this over to over to Mongo
-    console.log(secure_url)
-
-    // const text = target.elements[0].value
-    // try {
-    //   const res = await todosAPI.create({
-    //     text,
-    //     uid,
-    //     completed: false,
-    //   })
-    //   if (res.status > 400) {
-    //     throw new Error(res)
-    //   }
-    //   const { insertedId } = await res.json()
-    //   target.reset()
-    //   dispatch({ type: "add", id: insertedId, text })
-    // } catch (err) {
-    //   console.error(err)
-    // }
+    const text = target.elements[0].value
+    try {
+      const res = await todosAPI.create({
+        text,
+        uid,
+        completed: false,
+        imgURL,
+      })
+      if (res.status > 400) {
+        throw new Error(res)
+      }
+      const { insertedId } = await res.json()
+      target.reset()
+      dispatch({ type: "add", id: insertedId, text })
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   const handleCheckbox = ({ target }) => {
@@ -135,6 +124,25 @@ export const TodoList = () => {
     }
   }
 
+  const handleWidget = () => {
+    window.cloudinary
+      .createUploadWidget(
+        // TODO: https://cloudinary.com/documentation/upload_widget#look_and_feel_customization
+        {
+          cloudName: "codefinity",
+          uploadPreset: "todo-list",
+        },
+        (error, result) => {
+          if (result.event === "success") {
+            setImgURL(result.info.secure_url)
+          } else if (error) {
+            console.error(error)
+          }
+        }
+      )
+      .open()
+  }
+
   return (
     <main className="center mt-3 px-2">
       <div className="has-text-centered mb-3">
@@ -150,7 +158,11 @@ export const TodoList = () => {
         checkboxHandler={handleCheckbox}
         trashHandler={handleTrash}
       />
-      <Add addHandler={handleAdd} signOutHandler={handleSignOut} />
+      <Add
+        addHandler={handleAdd}
+        signOutHandler={handleSignOut}
+        widgetHandler={handleWidget}
+      />
       {notification ? <Notification notification={notification} /> : null}
     </main>
   )
