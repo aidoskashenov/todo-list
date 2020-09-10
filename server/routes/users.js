@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { addUser, getUser } from '../db';
+import { addUser, getUser } from 'db';
 
 const router = new Router();
 

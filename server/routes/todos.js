@@ -2,7 +2,7 @@ import { Router } from 'express';
 
 import {
   addTodo, getTodos, deleteTodo, toggleCompletion,
-} from '../db';
+} from 'db';
 
 const router = new Router();
 
