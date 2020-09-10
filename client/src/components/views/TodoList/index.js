@@ -44,7 +44,9 @@ export const TodoList = () => {
   const { uid } = useParams()
 
   const [imgURL, setImgURL] = useState("")
+  const [location, setLocation] = useState([])
   const [notification, setNotification] = useState(null)
+  const [status, setStatus] = useState("Loading...")
 
   const [todos, dispatch] = useReducer(reducer, [])
 
@@ -58,8 +60,11 @@ export const TodoList = () => {
         }
         const todos = await res.json()
         dispatch({ todos, type: "init" })
+
+        setStatus("Loaded")
       })()
     } catch (err) {
+      setStatus("Loaded")
       setNotification({
         className: "is-danger",
         text: err.message,
@@ -79,6 +84,7 @@ export const TodoList = () => {
         uid,
         completed: false,
         imgURL,
+        location
       })
       if (res.status > 400) {
         throw new Error(res)
@@ -106,6 +112,16 @@ export const TodoList = () => {
     } catch (err) {
       console.error(err)
     }
+  }
+
+  const handleLocation = () => {
+    navigator.geolocation.getCurrentPosition(
+
+      // Just putting in 'success' CB and assuming that user will allow, etc.
+      ({ coords: { latitude, longitude } }) => {
+        setLocation([latitude, longitude])
+      }
+    )
   }
 
   const handleSignOut = () => {
@@ -144,7 +160,11 @@ export const TodoList = () => {
       .open()
   }
 
-  return (
+  return status === "Loading..." ? (
+    <div className="is-active pageloader">
+      <span className="title">{status}</span>
+    </div>
+  ) : (
     <main className="center mt-3 px-2">
       <div className="has-text-centered mb-3">
         <h2 className="mb-0 title">Welcome, {state?.name}!</h2>
@@ -161,6 +181,7 @@ export const TodoList = () => {
       />
       <Add
         addHandler={handleAdd}
+        locationHandler={handleLocation}
         signOutHandler={handleSignOut}
         widgetHandler={handleWidget}
       />
