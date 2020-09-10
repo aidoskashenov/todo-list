@@ -2,7 +2,7 @@ import PropTypes from "prop-types"
 import React from "react"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faCamera, faFile } from "@fortawesome/free-solid-svg-icons"
+import { faCamera } from "@fortawesome/free-solid-svg-icons"
 
 export const AddForm = ({ addHandler, signOutHandler }) => {
   return (
@@ -17,33 +17,29 @@ export const AddForm = ({ addHandler, signOutHandler }) => {
         </div>
       </div>
 
-      <div className="field">
-        <div className="file is-primary">
-          <label className="file-label">
-            <input className="file-input" type="file" />
-            <span className="file-cta">
-              <span className="file-icon">
-                <FontAwesomeIcon
-                  icon={faFile}
-                  className="has-text-info ml-2"
-                />
-              </span>
-              &nbsp;
-              <span className="file-label">Upload photo/doc</span>
-            </span>
-          </label>
-        </div>
+      <div className="control">
+        <button className="button is-primary">
+          <FontAwesomeIcon icon={faCamera} />&nbsp;
+          Add Photo/Doc
+        </button>
       </div>
 
-      <div className="flex flex--align-center">
-        <button className="button is-success level-item">Add It!</button>
-        <button
-          className="button is-small is-warning level-item ml-2"
-          type="button"
-          onClick={signOutHandler}
-        >
-          Sign Out
-        </button>
+      <div className="field is-grouped mt-3 flex--align-center">
+        <div className="control">
+          <button className="button is-success" type="submit">
+            Add Todo!
+          </button>
+        </div>
+
+        <div className="control">
+          <button
+            className="button is-small is-danger ml-2"
+            type="button"
+            onClick={signOutHandler}
+          >
+            Sign Out
+          </button>
+        </div>
       </div>
     </form>
   )
