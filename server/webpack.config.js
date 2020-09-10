@@ -5,4 +5,7 @@ module.exports = {
   resolve: {
     modules: ['server', 'node_modules'],
   },
+  externals: {
+    saslprep: "require('saslprep')",
+  },
 };
