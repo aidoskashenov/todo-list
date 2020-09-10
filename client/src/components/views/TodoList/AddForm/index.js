@@ -2,7 +2,7 @@ import PropTypes from "prop-types"
 import React from "react"
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faCamera } from "@fortawesome/free-solid-svg-icons"
+import { faCamera, faFile } from "@fortawesome/free-solid-svg-icons"
 
 export const AddForm = ({ addHandler, signOutHandler }) => {
   return (
@@ -24,7 +24,7 @@ export const AddForm = ({ addHandler, signOutHandler }) => {
             <span className="file-cta">
               <span className="file-icon">
                 <FontAwesomeIcon
-                  icon={faCamera}
+                  icon={faFile}
                   className="has-text-info ml-2"
                 />
               </span>
