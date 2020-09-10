@@ -152,14 +152,6 @@ export const TodoList = () => {
       />
       <Add addHandler={handleAdd} signOutHandler={handleSignOut} />
       {notification ? <Notification notification={notification} /> : null}
-
-      <Image
-        cloud_name="codefinity"
-        publicId="v1599678464/todo-list/test_gil1wu.jpg"
-        secure="false"
-      >
-        <Transformation width="200" crop="scale" angle="10" />
-      </Image>
     </main>
   )
 }
