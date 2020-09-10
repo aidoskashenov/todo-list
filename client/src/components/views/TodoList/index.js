@@ -75,6 +75,8 @@ export const TodoList = () => {
   // Dispatch 'init' to update all of the initial todos...if any
   const handleAdd = async (event) => {
     event.preventDefault()
+
+    setStatus("Adding")
     const { target } = event
 
     const text = target.elements[0].value
@@ -182,6 +184,7 @@ export const TodoList = () => {
       <Add
         addHandler={handleAdd}
         locationHandler={handleLocation}
+        status={status}
         signOutHandler={handleSignOut}
         widgetHandler={handleWidget}
       />

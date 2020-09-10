@@ -43,7 +43,7 @@ export const AddForm = ({ addHandler, widgetHandler, signOutHandler }) => {
 
       <div className="field is-grouped mt-3 flex--align-center">
         <div className="control">
-          <button className="button is-success" type="submit">
+          <button className={`button is-success ${status === "Adding" ? 'is-loading' : null}`} type="submit">
             Add Todo!
           </button>
         </div>
@@ -65,5 +65,6 @@ export const AddForm = ({ addHandler, widgetHandler, signOutHandler }) => {
 AddForm.propTypes = {
   addHandler: PropTypes.func,
   signOutHandler: PropTypes.func,
+  status: PropTypes.string,
   widgetHandler: PropTypes.func,
 }
