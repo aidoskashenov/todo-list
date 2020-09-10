@@ -86,7 +86,7 @@ export const TodoList = () => {
         uid,
         completed: false,
         imgURL,
-        location
+        location,
       })
       if (res.status > 400) {
         throw new Error(res)
@@ -118,7 +118,6 @@ export const TodoList = () => {
 
   const handleLocation = () => {
     navigator.geolocation.getCurrentPosition(
-
       // Just putting in 'success' CB and assuming that user will allow, etc.
       ({ coords: { latitude, longitude } }) => {
         setLocation([latitude, longitude])

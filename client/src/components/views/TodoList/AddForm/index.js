@@ -4,7 +4,7 @@ import React from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCamera, faMap } from "@fortawesome/free-solid-svg-icons"
 
-export const AddForm = ({ addHandler, widgetHandler, signOutHandler }) => {
+export const AddForm = ({ addHandler, locationHandler, signOutHandler, status, widgetHandler}) => {
   return (
     <form className="mt-4" onSubmit={addHandler}>
       <div className="field">
@@ -64,6 +64,7 @@ export const AddForm = ({ addHandler, widgetHandler, signOutHandler }) => {
 
 AddForm.propTypes = {
   addHandler: PropTypes.func,
+  locationHandler: PropTypes.func,
   signOutHandler: PropTypes.func,
   status: PropTypes.string,
   widgetHandler: PropTypes.func,
