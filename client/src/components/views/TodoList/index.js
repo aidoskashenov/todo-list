@@ -133,6 +133,7 @@ export const TodoList = () => {
           uploadPreset: "todo-list",
         },
         (error, result) => {
+          // This represents a successful upload of an image
           if (result.event === "success") {
             setImgURL(result.info.secure_url)
           } else if (error) {
