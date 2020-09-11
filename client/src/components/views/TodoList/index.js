@@ -18,11 +18,7 @@ function reducer(state, action) {
     case "init":
       return state.concat(action.todos)
     case "add":
-      return state.concat({
-        _id: action.id,
-        completed: false,
-        text: action.text,
-      })
+      return state.concat({ ...action.payload, completed: false })
     case "toggle-completion": {
       // Wrap 'case' in blocks for proper scoping of lexical bindings (https://eslint.org/docs/rules/no-case-declarations)
       const { toggledTodo } = action
@@ -77,9 +73,10 @@ export const TodoList = () => {
     event.preventDefault()
 
     setStatus("Adding")
-    const { target } = event
 
+    const { target } = event
     const text = target.elements[0].value
+
     try {
       const res = await todosAPI.create({
         text,
@@ -93,7 +90,11 @@ export const TodoList = () => {
       }
       const { insertedId } = await res.json()
       target.reset()
-      dispatch({ type: "add", id: insertedId, text })
+      dispatch({
+        type: "add",
+        payload: { id: insertedId, text, imgURL, location },
+      })
+      setStatus("Idle")
     } catch (err) {
       console.error(err)
     }
