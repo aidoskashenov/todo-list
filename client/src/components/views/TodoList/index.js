@@ -5,7 +5,7 @@ import { useHistory, useLocation, useParams } from "react-router-dom"
 import { AddForm as Add } from "./AddForm"
 import { List } from "./List"
 
-import { Notification } from "components/base"
+import { ModalBox, Notification } from "components/base"
 
 import api from "api/routes"
 

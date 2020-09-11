@@ -4,6 +4,8 @@ import React, { Fragment } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faTrash } from "@fortawesome/free-solid-svg-icons"
 
+import { Modal } from "components/base"
+
 import "./List.scss"
 
 export const List = ({ todos, checkboxHandler, trashHandler }) => {
@@ -27,7 +29,8 @@ export const List = ({ todos, checkboxHandler, trashHandler }) => {
         {todos.map(({ _id: id, completed, text }) => (
           <li key={id} data-id={id} className={completed ? "completed" : null}>
             <span className="mr-1">{text}</span>&nbsp;
-            <input type="checkbox" onClick={checkboxHandler} />&nbsp;
+            <input type="checkbox" onClick={checkboxHandler} />
+            &nbsp;
             <FontAwesomeIcon
               icon={faTrash}
               className="has-text-danger ml-2"
@@ -36,6 +39,7 @@ export const List = ({ todos, checkboxHandler, trashHandler }) => {
           </li>
         ))}
       </ul>
+      <Modal />
     </Fragment>
   )
 }
