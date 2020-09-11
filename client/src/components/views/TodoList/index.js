@@ -117,10 +117,12 @@ export const TodoList = () => {
   }
 
   const handleLocation = () => {
+    setStatus("Locating...")
     navigator.geolocation.getCurrentPosition(
       // Just putting in 'success' CB and assuming that user will allow, etc.
       ({ coords: { latitude, longitude } }) => {
         setLocation([latitude, longitude])
+        setStatus("Idle")
       }
     )
   }

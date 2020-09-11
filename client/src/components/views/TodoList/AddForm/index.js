@@ -32,18 +32,18 @@ export const AddForm = ({ addHandler, locationHandler, signOutHandler, status, w
         <div className="control">
           <button
             className="button is-primary"
-            onClick={widgetHandler}
+            onClick={locationHandler}
             type="button"
           >
             <FontAwesomeIcon icon={faMap} />
-            &nbsp; Add Location
+            &nbsp; Capture Location
           </button>
         </div>
       </div>
 
       <div className="field is-grouped mt-3 flex--align-center">
         <div className="control">
-          <button className={`button is-success ${status === "Adding" ? 'is-loading' : null}`} type="submit">
+          <button className={`button is-success ${status === "Adding" ? 'is-loading' : null}`} disabled={status === "Locating..."} type="submit">
             Add Todo!
           </button>
         </div>
