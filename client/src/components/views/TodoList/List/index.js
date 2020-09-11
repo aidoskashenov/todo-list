@@ -4,7 +4,7 @@ import React, { Fragment } from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faTrash } from "@fortawesome/free-solid-svg-icons"
 
-import { Modal } from "components/base"
+import { ModalBox as Modal } from "./ModalBox"
 
 import "./List.scss"
 
