@@ -26,7 +26,7 @@ export const List = ({ todos, checkboxHandler, trashHandler }) => {
       </p>
 
       <ul>
-        {todos.map(({ _id: id, completed, text }) => (
+        {todos.map(({ _id: id, completed, text, imgURL, location }) => (
           <li key={id} data-id={id} className={completed ? "completed" : null}>
             <span className="mr-1">{text}</span>&nbsp;
             <input type="checkbox" onClick={checkboxHandler} />
@@ -36,10 +36,10 @@ export const List = ({ todos, checkboxHandler, trashHandler }) => {
               className="has-text-danger ml-2"
               onClick={trashHandler}
             />
+            {imgURL || location ? <Modal image={imgURL} location={location} text={text} /> : null}
           </li>
         ))}
       </ul>
-      <Modal />
     </Fragment>
   )
 }
