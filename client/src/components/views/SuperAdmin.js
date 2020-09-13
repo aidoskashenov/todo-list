@@ -17,7 +17,7 @@ function reducer(state, action) {
     case "init":
       return state.concat(action.users)
     case "delete":
-      return state.filter(({ _id: id }) => id !== action.id)
+      return state.filter(({ uid }) => uid !== action.uid)
   }
 }
 
@@ -26,6 +26,7 @@ export const SuperAdmin = () => {
 
   const [users, dispatch] = useReducer(reducer, [])
 
+  const [admin, setAdmin] = useState(false)
   const [notification, setNotification] = useState(null)
   const [secs, setSecs] = useState(3)
 
@@ -37,6 +38,7 @@ export const SuperAdmin = () => {
   }
 
   useEffect(() => {
+    // Notification means that we are in error state and will be 'pushing' to 'login'
     if (!notification) {
       auth
         .signInWithPopup(googleAuth)
@@ -44,7 +46,7 @@ export const SuperAdmin = () => {
           if (email !== process.env.REACT_APP_SUPER_ADMIN_EMAIL) {
             throw new Error()
           }
-
+          setAdmin(true)
           return usersAPI.index()
         })
         .then((res) => res.json())
@@ -60,7 +62,8 @@ export const SuperAdmin = () => {
   }, [notification])
 
   useEffect(() => {
-    if (notification) {
+    // There's an error b4 we logged in as 'admin' - get outta here!
+    if (notification && !admin) {
       while (secs >= 0) {
         const intervalID = setInterval(() => {
           setSecs((prevSecs) => prevSecs - 1)
@@ -74,10 +77,27 @@ export const SuperAdmin = () => {
       }
       history.push("/login")
     }
-  }, [history, notification, secs])
+  }, [admin, history, notification, secs])
 
-  const clickHandler = ({currentTarget: {dataset: {uid}}}) => {
-    console.log("hi", uid)
+  // TODO: Incorporate Firebase Admin SDK to actually delete users (🙆🏽‍♂️ for demo)
+  const clickHandler = async ({
+    currentTarget: {
+      dataset: { uid },
+    },
+  }) => {
+    try {
+      const res = await usersAPI.delete(uid)
+      if (res.status > 400) {
+        throw new Error("Can't delete 🔥!")
+      }
+
+      dispatch({ type: "delete", uid })
+    } catch (error) {
+      setNotification({
+        className: "is-danger",
+        text: error.message,
+      })
+    }
   }
 
   return notification ? (

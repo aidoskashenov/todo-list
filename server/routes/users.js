@@ -1,6 +1,8 @@
 import { Router } from 'express';
 
-import { addUser, getUser, getUsers } from 'db';
+import {
+  addUser, deleteUser, getUser, getUsers,
+} from 'db';
 
 const router = new Router();
 
@@ -37,6 +39,17 @@ router.post('/', async ({ body }, res) => {
     const mongoRes = await addUser(body);
     res.status(201);
     res.json({ uid: body.uid, mongoRes });
+  } catch (err) {
+    res.status(500);
+    console.error(err);
+  }
+});
+
+router.delete('/', async ({ body: { id } }, res) => {
+  try {
+    const mongoRes = await deleteUser(id);
+    res.status(204);
+    res.json(mongoRes);
   } catch (err) {
     res.status(500);
     console.error(err);
