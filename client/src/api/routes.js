@@ -17,6 +17,12 @@ export default (route) => ({
     return res
   },
 
+  async index() {
+    const res = await fetch(`${baseURL}/${route}`)
+
+    return res
+  },
+
   async show(id) {
     const res = await fetch(`${baseURL}/${route}/${id}`)
     return res

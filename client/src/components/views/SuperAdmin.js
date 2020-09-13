@@ -1,13 +1,27 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useReducer, useState } from "react"
 
 import { useHistory } from "react-router"
 
+import api from "api/routes"
 import { auth, googleAuth } from "auth"
 
 import { Notification } from "components/base"
 
+const usersAPI = api("users")
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "init":
+      return state.concat(action.users)
+    case "delete":
+      return state.filter(({ _id: id }) => id !== action.id)
+  }
+}
+
 export const SuperAdmin = () => {
   const history = useHistory()
+
+  const [users, dispatch] = useReducer(reducer, [])
 
   const [notification, setNotification] = useState(null)
   const [secs, setSecs] = useState(3)
@@ -27,12 +41,18 @@ export const SuperAdmin = () => {
           if (email !== process.env.REACT_APP_SUPER_ADMIN_EMAIL) {
             throw new Error()
           }
+
+          return usersAPI.index()
+        })
+        .then((res) => res.json())
+        .then(({body: users}) => {
+          dispatch({ users, type: "init" })
         })
         .catch(() => {
           updateNotification()
         })
     } else {
-      auth.signOut().then()
+      auth.signOut()
     }
   }, [notification])
 

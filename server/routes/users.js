@@ -1,11 +1,21 @@
 import { Router } from 'express';
 
-import { addUser, getUser } from 'db';
+import { addUser, getUser, getUsers } from 'db';
 
 const router = new Router();
 
-router.get('/', (_, res) => {
-  res.send('<h1>You have reached users test route!</h1>');
+router.get('/', async (_, res) => {
+  try {
+    const mongoRes = await getUsers();
+    if (!mongoRes) {
+      throw new Error('Unable to get users! 😞');
+    }
+    res.status(200);
+    res.json({ body: mongoRes });
+  } catch (err) {
+    res.status(500);
+    console.error(err);
+  }
 });
 
 router.get('/:uid', async ({ params }, res) => {

@@ -11,6 +11,15 @@ export const addUser = async (newUser) => {
   }
 };
 
+export const getUsers = async () => {
+  try {
+    return await client.db('todos').collection('users').find().toArray();
+  } catch (err) {
+    // Throw back any other errors
+    throw new Error(err);
+  }
+};
+
 export const getUser = async (uid) => {
   try {
     return await client.db('todos').collection('users').findOne(uid);
