@@ -123,6 +123,7 @@ export const Login = () => {
             case "Login":
               auth
                 .signInWithEmailAndPassword(email, pass)
+                // Take 'uid' from FB Auth and use that to get the user's information from Mbong
                 .then(({ user: { uid } }) => usersAPI.show(uid))
                 .then((res) => {
                   if (res.status > 400) {
