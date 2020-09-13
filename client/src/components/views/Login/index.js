@@ -147,7 +147,7 @@ export const Login = () => {
             default:
               auth
                 .createUserWithEmailAndPassword(email, pass)
-                .then(({ user: { uid } }) => usersAPI.create({ uid, name }))
+                .then(({ user: { uid } }) => usersAPI.create({ email, uid, name }))
                 .then((res) => {
                   if (res.status > 400) {
                     throw new Error(`Unable to create an account ATM! 😞🙇🏽‍♂️
