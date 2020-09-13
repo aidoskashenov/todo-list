@@ -1,6 +1,6 @@
 import * as firebase from "firebase/app"
 
-export default firebase.initializeApp({
+export const firebaseApp =  firebase.initializeApp({
   apiKey: "AIzaSyA27G_1eSwf2V--AN1i4elC6h3ZrR4XvAM",
   authDomain: "todo-list-2f030.firebaseapp.com",
   databaseURL: "https://todo-list-2f030.firebaseio.com",

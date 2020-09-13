@@ -2,7 +2,7 @@ import React from "react"
 
 import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom"
 
-import { Header, List, Footer, Home, Login, Four04, MapViewer } from "./components"
+import { Header, List, Footer, Home, Login, SuperAdmin, Four04 } from "./components"
 
 import "./App.scss"
 
@@ -30,13 +30,12 @@ export const App = () => {
           <List />
         </Route>
 
-        <Route exact path="/map">
-          <Header />
-          <MapViewer />
-        </Route>
-
         <Route exact path="/todos">
           <Redirect to={{ pathname: "/login" }} />
+        </Route>
+
+        <Route exact path="/super-admin">
+          <SuperAdmin />
         </Route>
 
         <Route>

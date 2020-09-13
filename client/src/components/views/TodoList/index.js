@@ -9,7 +9,7 @@ import { Notification } from "components/base"
 
 import api from "api/routes"
 
-import auth from "auth"
+import {auth} from "auth"
 
 const todosAPI = api("todos")
 
