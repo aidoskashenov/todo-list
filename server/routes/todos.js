@@ -47,6 +47,7 @@ router.delete('/', async ({ body: { id } }, res) => {
     res.json(mongoRes);
   } catch (err) {
     res.status(500);
+    console.error(err);
   }
 });
 
