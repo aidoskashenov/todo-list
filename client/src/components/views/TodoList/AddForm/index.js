@@ -4,7 +4,13 @@ import React from "react"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faCamera, faMap } from "@fortawesome/free-solid-svg-icons"
 
-export const AddForm = ({ addHandler, locationHandler, signOutHandler, status, widgetHandler}) => {
+export const AddForm = ({
+  addHandler,
+  locationHandler,
+  signOutHandler,
+  status,
+  widgetHandler,
+}) => {
   return (
     <form className="mt-4" onSubmit={addHandler}>
       <div className="field">
@@ -43,7 +49,15 @@ export const AddForm = ({ addHandler, locationHandler, signOutHandler, status, w
 
       <div className="field is-grouped mt-3 flex--align-center">
         <div className="control">
-          <button className={`button is-success ${status === "Adding" ? 'is-loading' : null}`} disabled={status === "Locating..."} type="submit">
+          <button
+            className={`button is-success ${
+              status === "Adding" || status === "Loading..."
+                ? "is-loading"
+                : null
+            }`}
+            disabled={status === "Locating..."}
+            type="submit"
+          >
             Add Todo!
           </button>
         </div>
