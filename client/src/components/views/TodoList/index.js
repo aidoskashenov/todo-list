@@ -137,6 +137,7 @@ export const TodoList = () => {
   const handleTrash = ({ target }) => {
     const id = target.closest("li").dataset.id
     try {
+      // TODO: Check for 400 or better status 🥅
       todosAPI.delete(id)
       dispatch({ type: "trash", id })
     } catch (err) {
