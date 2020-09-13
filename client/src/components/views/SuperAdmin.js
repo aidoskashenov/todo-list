@@ -2,6 +2,9 @@ import React, { useEffect, useReducer, useState } from "react"
 
 import { useHistory } from "react-router"
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faTrash } from "@fortawesome/free-solid-svg-icons"
+
 import api from "api/routes"
 import { auth, googleAuth } from "auth"
 
@@ -45,7 +48,7 @@ export const SuperAdmin = () => {
           return usersAPI.index()
         })
         .then((res) => res.json())
-        .then(({body: users}) => {
+        .then(({ body: users }) => {
           dispatch({ users, type: "init" })
         })
         .catch(() => {
@@ -73,9 +76,29 @@ export const SuperAdmin = () => {
     }
   }, [history, notification, secs])
 
+  const clickHandler = ({currentTarget: {dataset: {uid}}}) => {
+    console.log("hi", uid)
+  }
+
   return notification ? (
     <div className="container">
       <Notification notification={notification} />
     </div>
-  ) : null
+  ) : (
+    <table className="table">
+      <tbody>
+        {users.map(({ email, uid }) => (
+          <tr key={uid} onClick={clickHandler} data-uid={uid}>
+            <td>{email}</td>
+            <td>
+              <FontAwesomeIcon
+                icon={faTrash}
+                className="has-text-danger ml-2"
+              />
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  )
 }
