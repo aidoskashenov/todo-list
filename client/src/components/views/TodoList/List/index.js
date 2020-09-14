@@ -36,7 +36,7 @@ export const List = ({ todos, checkboxHandler, trashHandler }) => {
               className="has-text-danger ml-2"
               onClick={trashHandler}
             />
-            {imgURL || location ? <Modal image={imgURL} location={location} text={text} /> : null}
+            {imgURL || location.length ? <Modal image={imgURL} location={location} text={text} /> : null}
           </li>
         ))}
       </ul>
