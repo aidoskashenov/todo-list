@@ -134,7 +134,7 @@ export const Login = () => {
                   return res.json()
                 })
                 .then(({ body: { uid, name } }) => {
-                  history.push(`/todos/${uid}`, { name })
+                  history.push(`/todos/${uid}`, { name, email })
                 })
                 .catch((err) => {
                   setSubmitting(false)
@@ -157,7 +157,7 @@ export const Login = () => {
                   return res.json()
                 })
                 .then(({ uid }) => {
-                  history.push(`/todos/${uid}`, { name })
+                  history.push(`/todos/${uid}`, { name, email })
                 })
                 .catch((err) => {
                   setSubmitting(false)
