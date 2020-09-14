@@ -46,12 +46,12 @@ export const Login = () => {
         const { currentUser } = auth
         if (currentUser) {
           try {
-            const { uid } = currentUser
+            const { uid, email } = currentUser
             const res = await usersAPI.show(uid)
             const {
               body: { name },
             } = await res.json()
-            history.push(`/todos/${uid}`, { name })
+            history.push(`/todos/${uid}`, { email, name })
           } catch (err) {
             console.error(err)
           }
