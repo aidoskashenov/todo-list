@@ -30,10 +30,17 @@ export const getUser = async (uid) => {
 
 export const deleteUser = async (uid) => {
   try {
-    return await client
+    const delUserRes = await client
       .db('todos')
       .collection('users')
       .deleteOne({ uid });
+
+    const delTodosRes = await client
+      .db('todos')
+      .collection('todos')
+      .deleteMany({ uid });
+
+    return { delUserRes, delTodosRes };
   } catch (err) {
     throw new Error(err);
   }
