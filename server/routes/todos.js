@@ -4,6 +4,8 @@ import {
   addTodo, getTodos, deleteTodo, toggleCompletion,
 } from 'db';
 
+import sendTodosEmail from 'emails';
+
 const router = new Router();
 
 router.get('/:uid', async ({ params }, res) => {
@@ -17,6 +19,17 @@ router.get('/:uid', async ({ params }, res) => {
   } catch (err) {
     res.status(500);
     res.json(err);
+  }
+});
+
+router.post('/email', async ({ body: { email, incompletes } }, res) => {
+  try {
+    const emailRes = await sendTodosEmail(email, incompletes);
+    res.status(202);
+    res.json(emailRes);
+  } catch (error) {
+    res.status(500);
+    console.error(error);
   }
 });
 

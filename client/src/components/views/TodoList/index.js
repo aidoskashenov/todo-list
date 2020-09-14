@@ -13,6 +13,16 @@ import { auth } from "auth"
 
 const todosAPI = api("todos")
 
+function createEmailTodosList(todos) {
+  return todos
+    .map(
+      ({ text }, i) => `
+    ${i + 1}. ${text}
+  `
+    )
+    .join("")
+}
+
 function reducer(state, action) {
   switch (action.type) {
     case "init":
@@ -92,7 +102,7 @@ export const TodoList = () => {
       target.reset()
       dispatch({
         type: "add",
-        payload: { id: insertedId, text, imgURL, location },
+        payload: { _id: insertedId, text, imgURL, location },
       })
       setStatus("Idle")
     } catch (err) {
@@ -114,6 +124,33 @@ export const TodoList = () => {
       dispatch({ type: "toggle-completion", toggledTodo })
     } catch (err) {
       console.error(err)
+    }
+  }
+
+  const handleEmail = async () => {
+    try {
+      const res = await todosAPI.create(
+        {
+          email: state.email,
+          incompletes: createEmailTodosList(
+            todos.filter(({ completed }) => !completed)
+          ),
+        },
+        "email"
+      )
+      if (res.status > 400) {
+        throw new Error(res)
+      } else {
+        setNotification({
+          className: "is-success",
+          text: "✅ ✉️",
+        })
+      }
+    } catch (err) {
+      setNotification({
+        className: "is-danger",
+        text: err.message,
+      })
     }
   }
 
@@ -191,6 +228,9 @@ export const TodoList = () => {
         signOutHandler={handleSignOut}
         widgetHandler={handleWidget}
       />
+      <button className="button is-warning mt-3" onClick={handleEmail}>
+        Email Me My Incomplete Todos!
+      </button>
       {notification ? <Notification notification={notification} /> : null}
     </main>
   )

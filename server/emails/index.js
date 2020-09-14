@@ -24,7 +24,7 @@ export default (user, list) => {
       if (error) {
         throw new Error(error);
       }
-      console.info(`Email sent: ${info.response}`);
+      return `Email sent: ${info.response}`;
     },
   );
 };
