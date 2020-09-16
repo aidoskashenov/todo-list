@@ -8,6 +8,9 @@
     "@fortawesome/free-brands-svg-icons": "^5.14.0",
     "@fortawesome/free-solid-svg-icons": "^5.14.0",
     "@fortawesome/react-fontawesome": "^0.1.11",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.3.2",
+    "@testing-library/user-event": "^7.1.2",
     "bulma-pageloader": "^0.3.0",
     "cloudinary-react": "^1.6.6",
     "firebase": "^7.19.1",
@@ -25,29 +28,31 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "test": "react-scripts test",
     "dep": "depcruise --max-depth 2 --exclude 'node_modules' --output-type dot src | dot -T svg | tee dependencygraph.svg"
   },
   "eslintConfig": {
-    "env": {
-      "browser": true,
-      "node": true
-    },
     "extends": [
+      "react-app",
       "eslint:recommended",
       "plugin:react/recommended",
       "plugin:jsx-a11y/recommended",
-      "plugin:react-hooks/recommended",
-      "prettier",
-      "prettier/react"
+      "prettier"
     ],
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
     "plugins": [
-      "jsx-a11y"
+      "jsx-a11y",
+      "react",
+      "react-hooks"
     ],
     "rules": {
-      "react/jsx-uses-react": "error",
-      "react/jsx-uses-vars": "error"
-    },
-    "parser": "babel-eslint"
+      "react-hooks/rules-of-hooks": "error",
+      "react-hooks/exhaustive-deps": "warn"
+    }
   },
   "stylelint": {
     "extends": [
